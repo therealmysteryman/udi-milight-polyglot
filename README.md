@@ -1,9 +1,9 @@
-# MyNodeServer
+# MiLight V6 only Polyglot Node Server
 
 #### Installation
 
-Here is how you install this poly.
+To be Added
 
 #### Requirements
 
-Here is what is required to run this poly.
+To be Added
