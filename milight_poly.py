@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """
-This is a NodeServer template for Polyglot v2 written in Python2/3
-by Einstein.42 (James Milne) milne.james@gmail.com
+
+This is a NodeServer for MiLight Protocol V6 written by automationgeek (Jean-Francois Tremblay) 
+based on the NodeServer template for Polyglot v2 written in Python2/3 by Einstein.42 (James Milne) milne.james@gmail.com
+MiLight functionality based on 'Milight-Wifi-Bridge-3.0-Python-Library' project by QuentinCG (https://github.com/QuentinCG/Milight-Wifi-Bridge-3.0-Python-Library)
 """
 
 import polyinterface
