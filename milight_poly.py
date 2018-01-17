@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 """
 This is a NodeServer for MiLight Protocol V6 written by automationgeek (Jean-Francois Tremblay) 
 based on the NodeServer template for Polyglot v2 written in Python2/3 by Einstein.42 (James Milne) milne.james@gmail.com
@@ -6,10 +7,13 @@ MiLight functionality based on 'Milight-Wifi-Bridge-3.0-Python-Library' project 
 """
 
 import polyinterface
-import sys
 import time
+import sys
+from MilightWifiBridge import MilightWifiBridge
 
 LOGGER = polyinterface.LOGGER
+SERVERDATA = json.load(open('server.json'))
+VERSION = SERVERDATA['credits'][0]['version']
 
 class Controller(polyinterface.Controller):
     """
@@ -39,24 +43,33 @@ class Controller(polyinterface.Controller):
                   which never happens.
     """
     def __init__(self, polyglot):
-        """
-        Optional.
-        Super runs all the parent class necessities. You do NOT have
-        to override the __init__ method, but if you do, you MUST call super.
-        """
         super(Controller, self).__init__(polyglot)
+        self.name = 'MiLight'
+        self.initialized = False
+        self.tries = 0
 
     def start(self):
-        """
-        Optional.
-        Polyglot v2 Interface startup done. Here is where you start your integration.
-        This will run, once the NodeServer connects to Polyglot and gets it's config.
-        In this example I am calling a discovery method. While this is optional,
-        this is where you should start. No need to Super this method, the parent
-        version does nothing.
-        """
-        LOGGER.info('Started MyNodeServer')
-        self.discover()
+        LOGGER.info('Started MiLight for v2 NodeServer version %s', str(VERSION))
+        
+         try:
+            if 'host' in self.polyConfig['customParams']:
+                self.host = self.polyConfig['customParams']['host']
+            else:
+                self.host = ""
+
+            if 'port' in self.polyConfig['customParams']:
+                self.port = self.polyConfig['customParams']['port']
+            else:
+                self.port = "5987"
+
+            if self.host == "" or self.port == "" :
+                LOGGER.error('MiLight requires \'host\' parameters to be specified in custom configuration.')
+                return False
+            else:
+                if self.connect(): 
+                    self.discover()
+        except Exception as ex:
+            LOGGER.error('Error starting MiLight NodeServer: %s', str(ex))
 
     def shortPoll(self):
         """
