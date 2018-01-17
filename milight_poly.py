@@ -40,8 +40,7 @@ class Controller(polyinterface.Controller):
                 LOGGER.error('MiLight requires \'host\' parameters to be specified in custom configuration.')
                 return False
             else:
-                if self.connect(): 
-                    self.discover()
+                self.discover()
         except Exception as ex:
             LOGGER.error('Error starting MiLight NodeServer: %s', str(ex))
 
