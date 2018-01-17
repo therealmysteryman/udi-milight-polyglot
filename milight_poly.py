@@ -56,16 +56,19 @@ class Controller(polyinterface.Controller):
 
     def discover(self, *args, **kwargs):
         time.sleep(1)
-        self.addNode(MyNode(self, self.address, 'myaddress', 'My Node Name'))
+        self.addNode(MiLightNode(self, self.address, 'group1', 'Group1'))
+        self.addNode(MiLightNode(self, self.address, 'group2', 'Group2'))
+        self.addNode(MiLightNode(self, self.address, 'group3', 'Group3'))
+        self.addNode(MiLightNode(self, self.address, 'group4', 'Group4'))
 
     def delete(self):
-        LOGGER.info('Oh God I\'m being deleted. Nooooooooooooooooooooooooooooooooooooooooo.')
+        LOGGER.info('Deleting MiLight')
         
     id = 'controller'
     commands = {'DISCOVER': discover}
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 2}]
     
-class MyNode(polyinterface.Node):
+class MiLightNode(polyinterface.Node):
     """
     This is the class that all the Nodes will be represented by. You will add this to
     Polyglot/ISY with the controller.addNode method.
