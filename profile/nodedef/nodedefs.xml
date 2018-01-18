@@ -1,6 +1,6 @@
 <nodeDefs>
     <!-- Hub Node -->
-    <nodeDef id="HUEBR" nls="HHUB">
+    <nodeDef id="MILIGHTB" nls="MILIGHT">
         <editors />
         <sts>
             <st id="ST" editor="HCONNECT" />
