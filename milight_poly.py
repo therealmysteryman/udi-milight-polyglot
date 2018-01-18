@@ -57,10 +57,10 @@ class Controller(polyinterface.Controller):
 
     def discover(self, *args, **kwargs):
         time.sleep(1)
-        self.addNode(MiLightNode(self, self.address, 'group1', 'Group1'))
-        self.addNode(MiLightNode(self, self.address, 'group2', 'Group2'))
-        self.addNode(MiLightNode(self, self.address, 'group3', 'Group3'))
-        self.addNode(MiLightNode(self, self.address, 'group4', 'Group4'))
+        self.addNode(MiLightGroup(self, self.address, 'group1', 'Group1'))
+        self.addNode(MiLightGroup(self, self.address, 'group2', 'Group2'))
+        self.addNode(MiLightGroup(self, self.address, 'group3', 'Group3'))
+        self.addNode(MiLightGroup(self, self.address, 'group4', 'Group4'))
 
     def delete(self):
         LOGGER.info('Deleting MiLight')
@@ -69,7 +69,7 @@ class Controller(polyinterface.Controller):
     commands = {'DISCOVER': discover}
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 2}]
     
-class MiLightNode(polyinterface.Node):
+class MiLightGroup(polyinterface.Node):
     """
     This is the class that all the Nodes will be represented by. You will add this to
     Polyglot/ISY with the controller.addNode method.
@@ -99,7 +99,7 @@ class MiLightNode(polyinterface.Node):
         :param address: This nodes address
         :param name: This nodes name
         """
-        super(MyNode, self).__init__(controller, primary, address, name)
+        super(MiLightGroup, self).__init__(controller, primary, address, name)
 
     def start(self):
         """
@@ -143,7 +143,7 @@ class MiLightNode(polyinterface.Node):
     of variable to display. Check the UOM's in the WSDK for a complete list.
     UOM 2 is boolean so the ISY will display 'True/False'
     """
-    id = 'mynodetype'
+    id = 'HUE_GROUP'
     """
     id of the node from the nodedefs.xml that is in the profile.zip. This tells
     the ISY what fields and commands this node has.
@@ -158,7 +158,7 @@ class MiLightNode(polyinterface.Node):
 
 if __name__ == "__main__":
     try:
-        polyglot = polyinterface.Interface('MyNodeServer')
+        polyglot = polyinterface.Interface('MiLightNodeServer')
         """
         Instantiates the Interface to Polyglot.
         """
