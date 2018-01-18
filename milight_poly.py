@@ -25,7 +25,7 @@ class Controller(polyinterface.Controller):
 
     def start(self):
         LOGGER.info('Started MiLight for v2 NodeServer version %s', str(VERSION))
-         try:
+        try:
             if 'host' in self.polyConfig['customParams']:
                 self.host = self.polyConfig['customParams']['host']
             else:
