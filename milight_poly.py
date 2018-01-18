@@ -59,10 +59,11 @@ class Controller(polyinterface.Controller):
 
     def discover(self, *args, **kwargs):
         time.sleep(1)
-        self.addNode(MiLightGroup(self, self.address, 'group1', 'Group1'))
-        self.addNode(MiLightGroup(self, self.address, 'group2', 'Group2'))
-        self.addNode(MiLightGroup(self, self.address, 'group3', 'Group3'))
-        self.addNode(MiLightGroup(self, self.address, 'group4', 'Group4'))
+        self.addNode(MiLightGroup(self, self.address, 'bridge', 'Bridge'))
+        self.addNode(MiLightGroup(self, self.address, 'zone1', 'Zone1'))
+        self.addNode(MiLightGroup(self, self.address, 'zone2', 'Zone2'))
+        self.addNode(MiLightGroup(self, self.address, 'zone3', 'Zone3'))
+        self.addNode(MiLightGroup(self, self.address, 'zone4', 'Zone4'))
 
     def delete(self):
         LOGGER.info('Deleting MiLight')
@@ -107,14 +108,16 @@ class MiLightGroup(polyinterface.Node):
         self.timeout = 5.0
         
         # Light Group 1-4 0=ALL
-        if name = 'Group1':
+        if name = 'Zone1':
             self.grpNum = 1
-        elif name = 'Group2':
-            self.grpNum = 1
-        elif name = 'Group3':
+        elif name = 'Zone2':
+            self.grpNum = 2
+        elif name = 'Zone3':
             self.grpNum = 3
-        elif name = 'Group4':
+        elif name = 'Zone4':
             self.grpNum = 4
+        elif name = 'bridge':
+            self.grpNum = 5         
         else
             self.grpNum = 0
             
@@ -124,13 +127,19 @@ class MiLightGroup(polyinterface.Node):
 
     def setOn(self, command):
         milight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout):
-        milight.turnOn(zoneId=self.grpNum)
+        if self.grpNum = 5:
+            milight.turnOnWifiBridgeLamp()
+        else:
+            milight.turnOn(zoneId=self.grpNum)
         milight.close()
         self.setDriver('ST', 1)
 
     def setOff(self, command):
         milight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout):
-        milight.turnOff(zoneId=self.grpNum)
+        if self.grpNum = 5:
+            milight.turnOffWifiBridgeLamp()
+        else:
+            milight.turnOff(zoneId=self.grpNum)
         milight.close()
         self.setDriver('ST', 0)
 
