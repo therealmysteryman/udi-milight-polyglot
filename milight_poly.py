@@ -8,6 +8,7 @@ MiLight functionality based on 'Milight-Wifi-Bridge-3.0-Python-Library' project 
 
 import polyinterface
 import time
+import json
 import sys
 from MilightWifiBridge import MilightWifiBridge
 
