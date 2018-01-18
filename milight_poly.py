@@ -102,30 +102,36 @@ class MiLightGroup(polyinterface.Node):
         :param name: This nodes name
         """
         super(MiLightGroup, self).__init__(controller, primary, address, name)
-
+        self.host = self.parent.host
+        self.port = self.parent.port
+        self.timeout = 5.0
+        
+        # Light Group 1-4 0=ALL
+        if name = 'Group1':
+            self.grpNum = 1
+        elif name = 'Group2':
+            self.grpNum = 1
+        elif name = 'Group3':
+            self.grpNum = 3
+        elif name = 'Group4':
+            self.grpNum = 4
+        else
+            self.grpNum = 0
+            
     def start(self):
-        """
-        Optional.
-        This method is run once the Node is successfully added to the ISY
-        and we get a return result from Polyglot. Only happens once.
-        """
         self.setDriver('ST', 1)
         pass
 
     def setOn(self, command):
-        """
-        Example command received from ISY.
-        Set DON on MyNode.
-        Sets the ST (status) driver to 1 or 'True'
-        """
+        milight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout):
+        milight.turnOn(zoneId=self.grpNum)
+        milight.close()
         self.setDriver('ST', 1)
 
     def setOff(self, command):
-        """
-        Example command received from ISY.
-        Set DOF on MyNode
-        Sets the ST (status) driver to 0 or 'False'
-        """
+        milight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout):
+        milight.turnOff(zoneId=self.grpNum)
+        milight.close()
         self.setDriver('ST', 0)
 
     def query(self):
@@ -145,7 +151,7 @@ class MiLightGroup(polyinterface.Node):
     of variable to display. Check the UOM's in the WSDK for a complete list.
     UOM 2 is boolean so the ISY will display 'True/False'
     """
-    id = 'HUE_GROUP'
+    id = 'MILIGHT_GROUP'
     """
     id of the node from the nodedefs.xml that is in the profile.zip. This tells
     the ISY what fields and commands this node has.
@@ -161,23 +167,8 @@ class MiLightGroup(polyinterface.Node):
 if __name__ == "__main__":
     try:
         polyglot = polyinterface.Interface('MiLightNodeServer')
-        """
-        Instantiates the Interface to Polyglot.
-        """
         polyglot.start()
-        """
-        Starts MQTT and connects to Polyglot.
-        """
         control = Controller(polyglot)
-        """
-        Creates the Controller Node and passes in the Interface
-        """
         control.runForever()
-        """
-        Sits around and does nothing forever, keeping your program running.
-        """
     except (KeyboardInterrupt, SystemExit):
         sys.exit(0)
-        """
-        Catch SIGTERM or Control-C and exit cleanly.
-        """
