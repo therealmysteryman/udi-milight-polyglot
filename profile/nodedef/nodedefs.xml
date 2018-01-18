@@ -1,9 +1,9 @@
 <nodeDefs>
     <!-- Hub Node -->
-    <nodeDef id="MILIGHTB" nls="MILIGHT">
+    <nodeDef id="controller" nls="ctl">
         <editors />
         <sts>
-            <st id="ST" editor="HCONNECT" />
+            <st id="ST" editor="bool" />
         </sts>
         <cmds>
             <sends />
@@ -14,308 +14,41 @@
         </cmds>
     </nodeDef>
 
-    <!-- Extended Color Light -->
-    <nodeDef id="ECOLOR_LIGHT" nls="HCL">
-        <editors />
-        <sts>
-            <st id="ST" editor="HCLST" />
-            <st id="CLITEMP" editor="HKELVIN" />
-            <st id="RR" editor="HDURATION" />
-            <st id="GV1" editor="HCLXY" />  <!-- Color X -->
-            <st id="GV2" editor="HCLXY" />  <!-- Color Y -->
-            <st id="GV3" editor="HCLHUE" /> <!-- Hue -->
-            <st id="GV4" editor="HCLSAT" /> <!-- Saturation -->
-            <st id="GV5" editor="HCLBRI" /> <!-- Brightness -->
-            <st id="GV6" editor="HCONNECT" /> <!-- Reachable -->
-        </sts>
-        <cmds>
-            <sends />
-            <accepts>
-                <cmd id="DON" />
-                <cmd id="DOF" />
-                <cmd id="DFON" />
-                <cmd id="DFOF" />
-                <cmd id="BRT" />
-                <cmd id="DIM" />
-                <cmd id="FDUP" />
-                <cmd id="FDDOWN" />
-                <cmd id="FDSTOP" />
-                <cmd id="QUERY" />
-                <cmd id="SET_COLOR_RGB">
-                    <p id="R" editor="HCLRGB" />
-                    <p id="G" editor="HCLRGB" />
-                    <p id="B" editor="HCLRGB" />
-                    <p id="D" editor="HDURATION" init="RR" />
-                    <p id="BR" editor="HCLBRI" init="GV5" />
-                </cmd>
-                <cmd id="SET_COLOR_XY">
-                    <p id="X" editor="HCLXY" init="GV1" />
-                    <p id="Y" editor="HCLXY" init="GV2" />
-                    <p id="D" editor="HDURATION" init="RR" />
-                    <p id="BR" editor="HCLBRI" init="GV5" />
-                </cmd>
-                <cmd id="SET_COLOR">
-                    <p id="" editor="HCSEL" />
-                </cmd>
-                <cmd id="SET_HUE">
-                    <p id="" editor="HCLHUE" init="GV3"/>
-                </cmd>
-                <cmd id="SET_SAT">
-                    <p id="" editor="HCLSAT" init="GV4"/>
-                </cmd>
-                <cmd id="SET_BRI">
-                    <p id="" editor="HCLBRI" init="GV5" />
-                </cmd>
-                <cmd id="CLITEMP">
-                    <p id="" editor="HKELVIN" init="CLITEMP" />
-                </cmd>
-                <cmd id="SET_CTBR">
-                    <p id="K" editor="HKELVIN" init="CLITEMP" />
-                    <p id="D" editor="HDURATION" init="RR" />
-                    <p id="BR" editor="HCLBRI" init="GV5" />
-                </cmd>
-                <cmd id="RR">
-                    <p id="" editor="HDURATION" init="RR" />
-                </cmd>
-                <cmd id="SET_HSB">
-                    <p id="H" editor="HCLHUE" init="GV3" />
-                    <p id="S" editor="HCLSAT" init="GV4" />
-                    <p id="BR" editor="HCLBRI" init="GV5" />
-                    <p id="D" editor="HDURATION" init="RR" />
-                </cmd>
-                <cmd id="SET_ALERT">
-                    <p id="" editor="HASEL" />
-                </cmd>
-                <cmd id="SET_EFFECT">
-                    <p id="" editor="HESEL" />
-                </cmd>
-            </accepts>
-        </cmds>
-    </nodeDef>
-
-    <!-- Color Light -->
-    <nodeDef id="COLOR_LIGHT" nls="HCL">
-        <editors />
-        <sts>
-            <st id="ST" editor="HCLST" />
-            <st id="RR" editor="HDURATION" />
-            <st id="GV1" editor="HCLXY" />  <!-- Color X -->
-            <st id="GV2" editor="HCLXY" />  <!-- Color Y -->
-            <st id="GV3" editor="HCLHUE" /> <!-- Hue -->
-            <st id="GV4" editor="HCLSAT" /> <!-- Saturation -->
-            <st id="GV5" editor="HCLBRI" /> <!-- Brightness -->
-            <st id="GV6" editor="HCONNECT" /> <!-- Reachable -->
-        </sts>
-        <cmds>
-            <sends />
-            <accepts>
-	        <cmd id="DON" />
-                <cmd id="DOF" />
-                <cmd id="DFON" />
-                <cmd id="DFOF" />
-                <cmd id="BRT" />
-                <cmd id="DIM" />
-                <cmd id="FDUP" />
-                <cmd id="FDDOWN" />
-                <cmd id="FDSTOP" />
-                <cmd id="QUERY" />
-                <cmd id="SET_COLOR_RGB">
-                    <p id="R" editor="HCLRGB" />
-                    <p id="G" editor="HCLRGB" />
-                    <p id="B" editor="HCLRGB" />
-                    <p id="D" editor="HDURATION" init="RR" />
-                    <p id="BR" editor="HCLBRI" init="GV5" />
-                </cmd>
-                <cmd id="SET_COLOR_XY">
-                    <p id="X" editor="HCLXY" init="GV1" />
-                    <p id="Y" editor="HCLXY" init="GV2" />
-                    <p id="D" editor="HDURATION" init="RR" />
-                    <p id="BR" editor="HCLBRI" init="GV5" />
-                </cmd>
-                <cmd id="SET_COLOR">
-                    <p id="" editor="HCSEL" />
-                </cmd>
-                <cmd id="SET_HUE">
-                    <p id="" editor="HCLHUE" init="GV3"/>
-                </cmd>
-                <cmd id="SET_SAT">
-                    <p id="" editor="HCLSAT" init="GV4"/>
-                </cmd>
-                <cmd id="SET_BRI">
-                    <p id="" editor="HCLBRI" init="GV5" />
-                </cmd>
-                <cmd id="RR">
-                    <p id="" editor="HDURATION" init="RR" />
-                </cmd>
-                <cmd id="SET_HSB">
-                    <p id="H" editor="HCLHUE" init="GV3" />
-                    <p id="S" editor="HCLSAT" init="GV4" />
-                    <p id="BR" editor="HCLBRI" init="GV5" />
-                    <p id="D" editor="HDURATION" init="RR" />
-                </cmd>
-                <cmd id="SET_ALERT">
-                    <p id="" editor="HASEL" />
-                </cmd>
-                <cmd id="SET_EFFECT">
-                    <p id="" editor="HESEL" />
-                </cmd>
-            </accepts>
-        </cmds>
-    </nodeDef>
-
-    <!-- White Light -->
-    <nodeDef id="WHITE_LIGHT" nls="HCL">
-        <editors />
-        <sts>
-            <st id="ST" editor="HCLST" />
-            <st id="CLITEMP" editor="HKELVIN" />
-            <st id="RR" editor="HDURATION" />
-            <st id="GV5" editor="HCLBRI" /> <!-- Brightness -->
-            <st id="GV6" editor="HCONNECT" /> <!-- Reachable -->
-        </sts>
-        <cmds>
-            <sends />
-            <accepts>
-                <cmd id="DON" />
-                <cmd id="DOF" />
-                <cmd id="DFON" />
-                <cmd id="DFOF" />
-                <cmd id="BRT" />
-                <cmd id="DIM" />
-                <cmd id="FDUP" />
-                <cmd id="FDDOWN" />
-                <cmd id="FDSTOP" />
-                <cmd id="QUERY" />
-                <cmd id="SET_BRI">
-                    <p id="" editor="HCLBRI" init="GV5" />
-                </cmd>
-                <cmd id="CLITEMP">
-                    <p id="" editor="HKELVIN" init="CLITEMP" />
-                </cmd>
-                <cmd id="SET_CTBR">
-                    <p id="K" editor="HKELVIN" init="CLITEMP" />
-                    <p id="D" editor="HDURATION" init="RR" />
-                    <p id="BR" editor="HCLBRI" init="GV5" />
-                </cmd>
-                <cmd id="RR">
-                    <p id="" editor="HDURATION" init="RR" />
-                </cmd>
-                <cmd id="SET_ALERT">
-                    <p id="" editor="HASEL" />
-                </cmd>
-            </accepts>
-        </cmds>
-    </nodeDef>
-
-    <!-- Dimmable Light -->
-    <nodeDef id="DIMM_LIGHT" nls="HCL">
-        <editors />
-        <sts>
-            <st id="ST" editor="HCLST" />
-            <st id="RR" editor="HDURATION" />
-            <st id="GV5" editor="HCLBRI" /> <!-- Brightness -->
-            <st id="GV6" editor="HCONNECT" /> <!-- Reachable -->
-        </sts>
-        <cmds>
-            <sends />
-            <accepts>
-                <cmd id="DON" />
-                <cmd id="DOF" />
-                <cmd id="DFON" />
-                <cmd id="DFOF" />
-                <cmd id="BRT" />
-                <cmd id="DIM" />
-                <cmd id="FDUP" />
-                <cmd id="FDDOWN" />
-                <cmd id="FDSTOP" />
-                <cmd id="QUERY" />
-                <cmd id="SET_BRI">
-                    <p id="" editor="HCLBRI" init="GV5" />
-                </cmd>
-                <cmd id="RR">
-                    <p id="" editor="HDURATION" init="RR" />
-                </cmd>
-                <cmd id="SET_ALERT">
-                    <p id="" editor="HASEL" />
-                </cmd>
-            </accepts>
-        </cmds>
-    </nodeDef>
-
     <!-- Group of Lights -->
-    <nodeDef id="HUE_GROUP" nls="HGR">
+    <nodeDef id="MILIGHT_GROUP" nls="MGR">
         <editors />
         <sts>
             <st id="ST" editor="HCLST" />
             <st id="CLITEMP" editor="HKELVIN" />
             <st id="RR" editor="HDURATION" />
-            <st id="GV1" editor="HCLXY" />  <!-- Color X -->
-            <st id="GV2" editor="HCLXY" />  <!-- Color Y -->
-            <st id="GV3" editor="HCLHUE" /> <!-- Hue -->
-            <st id="GV4" editor="HCLSAT" /> <!-- Saturation -->
-            <st id="GV5" editor="HCLBRI" /> <!-- Brightness -->
-            <st id="GV6" editor="HGRNUM" /> <!-- Number of Lights -->
+            <st id="GV1" editor="MCOLOR" />  <!-- Color -->
+            <st id="GV2" editor="MCLSAT" /> <!-- Saturation -->
+            <st id="GV3" editor="MCLBRI" /> <!-- Brightness -->
         </sts>
         <cmds>
             <sends />
             <accepts>
                 <cmd id="DON" />
                 <cmd id="DOF" />
-                <cmd id="DFON" />
-                <cmd id="DFOF" />
                 <cmd id="BRT" />
                 <cmd id="DIM" />
-                <cmd id="FDUP" />
-                <cmd id="FDDOWN" />
-                <cmd id="FDSTOP" />
-                <cmd id="QUERY" />
-                <cmd id="SET_COLOR_RGB">
-                    <p id="R" editor="HCLRGB" />
-                    <p id="G" editor="HCLRGB" />
-                    <p id="B" editor="HCLRGB" />
-                    <p id="D" editor="HDURATION" init="RR" />
-                    <p id="BR" editor="HCLBRI" init="GV5" />
-                </cmd>
-                <cmd id="SET_COLOR_XY">
-                    <p id="X" editor="HCLXY" init="GV1" />
-                    <p id="Y" editor="HCLXY" init="GV2" />
-                    <p id="D" editor="HDURATION" init="RR" />
-                    <p id="BR" editor="HCLBRI" init="GV5" />
-                </cmd>
                 <cmd id="SET_COLOR">
-                    <p id="" editor="HCSEL" />
-                </cmd>
-                <cmd id="SET_HUE">
-                    <p id="" editor="HCLHUE" init="GV3"/>
+                    <p id="" editor="MCSEL" />
                 </cmd>
                 <cmd id="SET_SAT">
-                    <p id="" editor="HCLSAT" init="GV4"/>
+                    <p id="" editor="MCLSAT" init="GV4"/>
                 </cmd>
                 <cmd id="SET_BRI">
-                    <p id="" editor="HCLBRI" init="GV5" />
+                    <p id="" editor="MCLBRI" init="GV5" />
                 </cmd>
                 <cmd id="CLITEMP">
-                    <p id="" editor="HKELVIN" init="CLITEMP" />
-                </cmd>
-                <cmd id="SET_CTBR">
-                    <p id="K" editor="HKELVIN" init="CLITEMP" />
-                    <p id="D" editor="HDURATION" init="RR" />
-                    <p id="BR" editor="HCLBRI" init="GV5" />
+                    <p id="" editor="MKELVIN" init="CLITEMP" />
                 </cmd>
                 <cmd id="RR">
-                    <p id="" editor="HDURATION" init="RR" />
-                </cmd>
-                <cmd id="SET_HSB">
-                    <p id="H" editor="HCLHUE" init="GV3" />
-                    <p id="S" editor="HCLSAT" init="GV4" />
-                    <p id="BR" editor="HCLBRI" init="GV5" />
-                    <p id="D" editor="HDURATION" init="RR" />
-                </cmd>
-                <cmd id="SET_ALERT">
-                    <p id="" editor="HASEL" />
+                    <p id="" editor="MDURATION" init="RR" />
                 </cmd>
                 <cmd id="SET_EFFECT">
-                    <p id="" editor="HESEL" />
+                    <p id="" editor="MESEL" />
                 </cmd>
             </accepts>
         </cmds>
