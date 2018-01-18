@@ -22,6 +22,8 @@ class Controller(polyinterface.Controller):
         super(Controller, self).__init__(polyglot)
         self.name = 'MiLight'
         self.initialized = False
+        self.host = ""
+        self.port = ""
         self.tries = 0
 
     def start(self):
