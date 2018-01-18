@@ -1,18 +1,26 @@
 {
-    "name": "PythonTemplate",
-    "docs": "https://github.com/Einstein42/udi-poly-template-python",
-    "type": "python",
-    "executable": "name-poly.py",
+    "name": "MiLight",
+    "docs": "http://www.limitlessled.com/dev/",
+    "type": "python3",
+    "executable": "milight_poly.py",
     "install": "install.sh",
-    "description": "My Node Server",
-    "notice": "Your disclaimer here",
-    "shortPoll": "5",
+    "shortPoll": "15",
     "longPoll": "60",
+    "description": "Connect Milight V6 Protocol Lighting system to the ISY994.",
+    "notice": "https://github.com/therealmysteryman/udi-milight-polyglot/blob/master/LICENSE",
     "credits": [
         {
-            "title": "mypoly: a NodeServer for My Integration",
-            "author": "Your Name Here",
-            "version": "2.0.1",
+            "title": "udi-milight-poly: A Polyglot v2 interface to Milight",
+            "author": "Jean-Francois Tremblay",
+            "version": "0.0.0",
+            "date": "Jan 17, 2018",
+            "source": "https://github.com/therealmysteryman/udi-milight-polyglot",
+            "license": "https://github.com/therealmysteryman/udi-milight-polyglot/blob/master/LICENSE"
+        },
+	{
+            "title": "udi-poly-template-python: A Polyglot v2 Poly template",
+            "author": "James Milne (Einstein.42)",
+            "version": "2.0.0",
             "date": "November 8, 2017",
             "source": "https://github.com/Einstein42/udi-poly-template-python",
             "license": "https://raw.githubusercontent.com/Einstein42/udi-poly-template-python/master/LICENSE"
