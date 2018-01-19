@@ -133,7 +133,7 @@ class MiLightGroup(polyinterface.Node):
             self.myMilight.turnOnWifiBridgeLamp()
         else:
             self.myMilight.turnOn(zoneId=self.grpNum)
-        milight.close()
+        self.myMilight.close()
         #self.setDriver('ST', 1)
 
     def setOff(self, command):
