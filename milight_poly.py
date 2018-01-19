@@ -118,7 +118,7 @@ class MiLightGroup(polyinterface.Node):
             self.grpNum = 3
         elif name == 'Zone4':
             self.grpNum = 4
-        elif name == 'bridge':
+        elif name == 'Bridge':
             self.grpNum = 5         
         else:
             self.grpNum = 0
