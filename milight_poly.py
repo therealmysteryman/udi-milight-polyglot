@@ -118,7 +118,7 @@ class MiLightGroup(polyinterface.Node):
             self.grpNum = 4
         elif name == 'bridge':
             self.grpNum = 5         
-        else
+        else:
             self.grpNum = 0
             
     def start(self):
