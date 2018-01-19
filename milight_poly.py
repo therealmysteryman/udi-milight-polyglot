@@ -135,6 +135,7 @@ class MiLightGroup(polyinterface.Node):
             myMilight.setColor(0xBA,0)
         else:
             myMilight.turnOn(zoneId=self.grpNum)
+            myMilight.setColor(0xBA,1)
         myMilight.close()
         self.setDriver('ST', 1)
 
