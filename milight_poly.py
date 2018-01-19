@@ -132,7 +132,7 @@ class MiLightGroup(polyinterface.Node):
         else:
             milight.turnOn(zoneId=self.grpNum)
         milight.close()
-        self.setDriver('ST', 1)
+        #self.setDriver('ST', 1)
 
     def setOff(self, command):
         milight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
@@ -141,7 +141,7 @@ class MiLightGroup(polyinterface.Node):
         else:
             milight.turnOff(zoneId=self.grpNum)
         milight.close()
-        self.setDriver('ST', 0)
+        #self.setDriver('ST', 0)
 
     def query(self):
         """
