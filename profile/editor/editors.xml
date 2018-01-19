@@ -26,7 +26,7 @@
     
     <!-- Kelvin Editor -->
     <editor id="MKELVIN">
-        <range uom="26" min="2000" max="6500" prec="0" step="1" />
+        <range uom="26" min="2000" max="6500" prec="0" step="1"  />
     </editor>
         
 </editors>
