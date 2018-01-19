@@ -126,7 +126,7 @@ class MiLightGroup(polyinterface.Node):
         pass
 
     def setOn(self, command):
-        milight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout):
+        milight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         if self.grpNum == 5:
             milight.turnOnWifiBridgeLamp()
         else:
@@ -135,7 +135,7 @@ class MiLightGroup(polyinterface.Node):
         self.setDriver('ST', 1)
 
     def setOff(self, command):
-        milight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout):
+        milight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         if self.grpNum == 5:
             milight.turnOffWifiBridgeLamp()
         else:
