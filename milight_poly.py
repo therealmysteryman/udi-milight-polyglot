@@ -132,7 +132,7 @@ class MiLightGroup(polyinterface.Node):
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         if self.grpNum == 5:
             myMilight.turnOnWifiBridgeLamp()
-            myMilight.setColor(0xBA,1)
+            myMilight.setColor(0xBA,0)
         else:
             myMilight.turnOn(zoneId=self.grpNum)
         myMilight.close()
