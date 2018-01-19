@@ -9,35 +9,24 @@
     <editor id="MCOLOR">
         <range uom="100" min="0" max="255" step="1" prec="0" />
     </editor>
+    
+    <!-- Brightness Editor -->
+    <editor id="MCLBRI">
+        <range uom="51" min="1" max="100" prec="0" step="1" />
+    </editor>
 
-    <!-- Color Selector -->
-    <editor id="MCSEL">
-        <range uom="5" subset="1-5" nls="COLORS_MCSEL" />
+    <editor id="MCLSAT">
+        <range uom="51" min="1" max="100" prec="0" step="1" />
     </editor>
     
     <!-- Effect Selector -->
     <editor id="MESEL">
         <range uom="25" subset="1-2" nls="EFFECTS_HESEL" />
     </editor>
-
-    <!-- Saturation Editor -->
-    <editor id="MCLSAT">
-        <range uom="100" min="0" max="254" prec="0" step="1" />
-    </editor>
-
-    <!-- Brightness Editor -->
-    <editor id="MCLBRI">
-        <range uom="100" min="1" max="254" prec="0" step="1" />
-    </editor>
-
-    <!-- Hue Kelvin Editor -->
+    
+    <!-- Kelvin Editor -->
     <editor id="MKELVIN">
         <range uom="26" min="2000" max="6500" prec="0" step="1" />
-    </editor>
-    
-    <!-- Hue Duration Editor -->
-    <editor id="MDURATION">
-        <range uom="42" min="0" max="540000" prec="0" step="100" />
     </editor>
         
 </editors>
