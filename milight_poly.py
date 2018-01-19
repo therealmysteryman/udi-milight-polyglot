@@ -108,15 +108,15 @@ class MiLightGroup(polyinterface.Node):
         self.timeout = 5.0
         
         # Light Group 1-4 0=ALL
-        if name = 'Zone1':
+        if name == 'Zone1':
             self.grpNum = 1
-        elif name = 'Zone2':
+        elif name == 'Zone2':
             self.grpNum = 2
-        elif name = 'Zone3':
+        elif name == 'Zone3':
             self.grpNum = 3
-        elif name = 'Zone4':
+        elif name == 'Zone4':
             self.grpNum = 4
-        elif name = 'bridge':
+        elif name == 'bridge':
             self.grpNum = 5         
         else
             self.grpNum = 0
@@ -127,7 +127,7 @@ class MiLightGroup(polyinterface.Node):
 
     def setOn(self, command):
         milight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout):
-        if self.grpNum = 5:
+        if self.grpNum == 5:
             milight.turnOnWifiBridgeLamp()
         else:
             milight.turnOn(zoneId=self.grpNum)
@@ -136,7 +136,7 @@ class MiLightGroup(polyinterface.Node):
 
     def setOff(self, command):
         milight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout):
-        if self.grpNum = 5:
+        if self.grpNum == 5:
             milight.turnOffWifiBridgeLamp()
         else:
             milight.turnOff(zoneId=self.grpNum)
