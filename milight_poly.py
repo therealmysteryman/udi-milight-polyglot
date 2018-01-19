@@ -106,6 +106,7 @@ class MiLightGroup(polyinterface.Node):
         self.host = self.parent.host
         self.port = self.parent.port
         self.timeout = 5.0
+        self.myMilight = MilightWifiBridge()
         
         # Light Group 1-4 0=ALL
         if name == 'Zone1':
@@ -126,21 +127,21 @@ class MiLightGroup(polyinterface.Node):
         pass
 
     def setOn(self, command):
-        milight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
+        self.myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         if self.grpNum == 5:
-            milight.turnOnWifiBridgeLamp()
+            self.myMilight.turnOnWifiBridgeLamp()
         else:
-            milight.turnOn(zoneId=self.grpNum)
+            self.myMilight.turnOn(zoneId=self.grpNum)
         milight.close()
         #self.setDriver('ST', 1)
 
     def setOff(self, command):
-        milight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
+        self.myMilight.milight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         if self.grpNum == 5:
-            milight.turnOffWifiBridgeLamp()
+            self.myMilight.milight.turnOffWifiBridgeLamp()
         else:
-            milight.turnOff(zoneId=self.grpNum)
-        milight.close()
+            self.myMilight.milight.turnOff(zoneId=self.grpNum)
+        self.myMilight.milight.close()
         #self.setDriver('ST', 0)
 
     def query(self):
