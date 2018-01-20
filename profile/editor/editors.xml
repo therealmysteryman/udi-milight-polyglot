@@ -21,7 +21,7 @@
     
     <!-- Effect Selector -->
     <editor id="MESEL">
-        <range uom="25" subset="1-2" nls="EFFECTS_MESEL" />
+        <range uom="25" subset="1-9" nls="EFFECTS_MESEL" />
     </editor>
     
     <!-- Kelvin Editor -->
