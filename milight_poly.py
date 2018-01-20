@@ -190,18 +190,18 @@ class MiLightGroup(polyinterface.Node):
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         if self.grpNum == 5:
-            myMilight.milight.setWhiteMode(zoneId=self.grpNum)
+            myMilight.setWhiteMode(zoneId=self.grpNum)
         else:
-            myMilight.milight.setWhiteMode(zoneId=self.grpNum)
+            myMilight.setWhiteMode(zoneId=self.grpNum)
         myMilight.close()
         
     def setNightMode(self, command):
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         if self.grpNum == 5:
-            myMilight.milight.setNightMode(zoneId=self.grpNum)
+            myMilight.setNightMode(zoneId=self.grpNum)
         else:
-            myMilight.milight.setNightMode(zoneId=self.grpNum)
+            myMilight.setNightMode(zoneId=self.grpNum)
         myMilight.close()
         
     def query(self):
