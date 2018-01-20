@@ -16,7 +16,7 @@
     <nodeDef id="MILIGHT_GROUP" nls="MGR">
         <editors />
         <sts>
-            <st id="ST" editor="MCLST" />
+            <st id="GV5" editor="MONOFF" />
             <st id="CLITEMP" editor="HKELVIN" />
             <st id="GV1" editor="MCOLOR" />  <!-- Color -->
             <st id="GV2" editor="MCLSAT" /> <!-- Saturation -->
