@@ -98,7 +98,6 @@ class MiLightGroup(polyinterface.Node):
             self.grpNum = 0
             
     def start(self):
-        self.setDriver('ST', 0)
         pass
 
     def setOn(self, command):
