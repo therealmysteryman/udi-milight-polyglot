@@ -212,7 +212,7 @@ class MiLightGroup(polyinterface.Node):
                {'driver': 'GV2', 'value': 0, 'uom': 51},
                {'driver': 'GV3', 'value': 0, 'uom': 51},
                {'driver': 'CLITEMP', 'value': 0, 'uom': 26},
-                {'driver': 'MESEL', 'value': 0, 'uom': 25}]
+               {'driver': 'GV4', 'value': 1, 'uom': 100}]
     id = 'MILIGHT_GROUP'
     commands = {
                     'DON': setOn,
