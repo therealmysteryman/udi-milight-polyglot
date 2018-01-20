@@ -185,6 +185,7 @@ class MiLightGroup(polyinterface.Node):
         else:
             myMilight.setDiscoMode(discoMode=intEffect, zoneId=self.grpNum)
         myMilight.close()
+        self.setDriver('MESEL', intEffect)
         
     def setWhiteMode(self, command):
         myMilight = MilightWifiBridge()
@@ -211,7 +212,8 @@ class MiLightGroup(polyinterface.Node):
                {'driver': 'GV1', 'value': 0, 'uom': 100},
                {'driver': 'GV2', 'value': 0, 'uom': 51},
                {'driver': 'GV3', 'value': 0, 'uom': 51},
-               {'driver': 'CLITEMP', 'value': 0, 'uom': 26}]
+               {'driver': 'CLITEMP', 'value': 0, 'uom': 26},
+                {'driver': 'MESEL', 'value': 0, 'uom': 25}]
     id = 'MILIGHT_GROUP'
     commands = {
                     'DON': setOn,
