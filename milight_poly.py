@@ -207,7 +207,7 @@ class MiLightGroup(polyinterface.Node):
     def query(self):
         self.reportDrivers()
         
-    drivers = [{'driver': 'G5', 'value': 0, 'uom': 78},
+    drivers = [{'driver': 'GV5', 'value': 0, 'uom': 78},
                {'driver': 'GV1', 'value': 0, 'uom': 100},
                {'driver': 'GV2', 'value': 0, 'uom': 51},
                {'driver': 'GV3', 'value': 0, 'uom': 51},
