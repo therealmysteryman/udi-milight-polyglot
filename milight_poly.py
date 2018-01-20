@@ -110,7 +110,7 @@ class MiLightGroup(polyinterface.Node):
         else:
             myMilight.turnOn(zoneId=self.grpNum)
         myMilight.close()
-        self.setDriver('ST', 1)
+        self.setDriver('GV4', 100)
 
     def setOff(self, command):
         myMilight = MilightWifiBridge()
@@ -120,7 +120,7 @@ class MiLightGroup(polyinterface.Node):
         else:
             myMilight.turnOff(zoneId=self.grpNum)
         myMilight.close()
-        self.setDriver('ST', 0)
+        self.setDriver('GV4', 0)
         
     def setColor(self, command):
         query = command.get('query')
@@ -208,7 +208,7 @@ class MiLightGroup(polyinterface.Node):
     def query(self):
         self.reportDrivers()
         
-    drivers = [{'driver': 'ST', 'value': 0, 'uom': 2},
+    drivers = [{'driver': 'GV4', 'value': 0, 'uom': 78},
                {'driver': 'GV1', 'value': 0, 'uom': 100},
                {'driver': 'GV2', 'value': 0, 'uom': 51},
                {'driver': 'GV3', 'value': 0, 'uom': 51},
