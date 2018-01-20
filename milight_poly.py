@@ -137,7 +137,7 @@ class MiLightGroup(polyinterface.Node):
         
     def setSaturation(self, command):
         query = command.get('query')
-        intSat = int(query.get('GV2.uom51'))
+        intSat = int(command.get('value'))
         
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
@@ -150,7 +150,7 @@ class MiLightGroup(polyinterface.Node):
         
     def setBrightness(self, command):
         query = command.get('query')
-        intBri = int(query.get('GV3.uom51'))
+        intBri = int(command.get('value'))
         
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
