@@ -29,8 +29,8 @@
             <accepts>
                 <cmd id="DON" />
                 <cmd id="DOF" />
-                <cmd id="BRT" />
-                <cmd id="DIM" />
+                <cmd id="WHITE_MODE"/>
+                <cmd id="NIGHT_MODE"/>
                 <cmd id="SET_COLOR">
                     <p id="" editor="MCOLOR" />
                 </cmd>
