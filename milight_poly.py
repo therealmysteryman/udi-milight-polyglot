@@ -163,7 +163,7 @@ class MiLightGroup(polyinterface.Node):
 
     def setTempColor(self, command):
         query = command.get('query')
-        intTemp = int(query.get('CLITEMP.uom26'))
+        intTemp = int(command.get('value'))
         
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
