@@ -11,6 +11,7 @@ ND-controller-ICON = GenericCtl
 ST-GV1-NAME = Colour
 ST-GV2-NAME = Saturation
 ST-GV3-NAME = Brightness
+ST-GV4-NAME = Status
 ST-ST-NAME = Status
 ST-CLITEMP-NAME = Temperature
 
