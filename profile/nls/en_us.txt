@@ -6,7 +6,7 @@ ST-MILIGHT-ST-NAME = Connected
 ND-MILIGHT_GROUP-NAME = Milight Light
 ND-MILIGHT_GROUP-ICON = Lamp
 ND-controller-NAME = Milight Hub
-ND-controller_GROUP-ICON = GenericCtl
+ND-controller-ICON = GenericCtl
 
 ST-GV1-NAME = Colour
 ST-GV2-NAME = Saturation
