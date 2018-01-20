@@ -10,26 +10,24 @@ ST-GV1-NAME = Colour
 ST-GV2-NAME = Saturation
 ST-GV3-NAME = Brightness
 ST-ST-NAME = Status
-ST-RR-NAME = Transition time
 ST-CLITEMP-NAME = Temperature
 
 CMD-DON-NAME = On
 CMD-DOF-NAME = Off
-CMD-DFON-NAME = Fast On
-CMD-DFOF-NAME = Fast Off
-CMD-BRT-NAME = Brighten
-CMD-DIM-NAME = Dim
 CMD-SET_SAT-NAME = Set Saturation
 CMD-SET_BRI-NAME = Set Brightness
 CMD-CLITEMP-NAME = Set Color Temperature
 CMD-SET_COLOR-NAME = Set Colour
 CMD-SET_EFFECT-NAME = Set Effect
+CMD-WHITE_MODE-NAME = White Mode
+CMD-NIGHT_MODE-NAME = Night Mode
 
-EFFECTS_MESEL-1 = None
-EFFECTS_MESEL-2 = Colorloop
-
-#Generic for all Types
-CMDP-S-NAME = Saturation
-CMDP-BR-NAME = Brightness
-CMDP-K-NAME = Color Temperature
-CMDP-D-NAME = Transition Time
+EFFECTS_MESEL-1 = 1
+EFFECTS_MESEL-2 = 2
+EFFECTS_MESEL-3 = 3
+EFFECTS_MESEL-4 = 4
+EFFECTS_MESEL-5 = 5
+EFFECTS_MESEL-6 = 6
+EFFECTS_MESEL-7 = 7
+EFFECTS_MESEL-8 = 8
+EFFECTS_MESEL-9 = 9
