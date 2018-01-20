@@ -184,7 +184,7 @@ class MiLightGroup(polyinterface.Node):
         else:
             myMilight.setDiscoMode(discoMode=intEffect, zoneId=self.grpNum)
         myMilight.close()
-        self.setDriver('SET_EFFECT', intEffect)
+        self.setDriver('GV4', intEffect)
         
     def setWhiteMode(self, command):
         myMilight = MilightWifiBridge()
