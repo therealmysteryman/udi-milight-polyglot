@@ -3,8 +3,10 @@ ND-MILIGHTB-NAME = Milight
 CMD-MILIGHT-DISCOVER-NAME = Re-Discover
 ST-MILIGHT-ST-NAME = Connected
 
-ND-COLOR_LIGHT-NAME = Colour Light
-ND-COLOR_LIGHT-ICON = Lamp
+ND-MILIGHT_GROUP-NAME = Milight Light
+ND-MILIGHT_GROUP-ICON = Lamp
+ND-controller-NAME = Milight Hub
+ND-controller_GROUP-ICON = GenericCtl
 
 ST-GV1-NAME = Colour
 ST-GV2-NAME = Saturation
