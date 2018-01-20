@@ -47,7 +47,7 @@ class Controller(polyinterface.Controller):
             else:
                 self.setDriver('ST', 1)
                 self.discover()
-        except Exception as ex:c
+        except Exception as ex:
             LOGGER.error('Error starting MiLight NodeServer: %s', str(ex))
 
     def shortPoll(self):
