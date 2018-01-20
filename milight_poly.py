@@ -208,7 +208,10 @@ class MiLightGroup(polyinterface.Node):
         self.reportDrivers()
         
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 2},
-               {'driver': 'GV1', 'value': 0, 'uom': 100}]
+               {'driver': 'GV1', 'value': 0, 'uom': 100},
+               {'driver': 'GV2', 'value': 0, 'uom': 51},
+               {'driver': 'GV3', 'value': 0, 'uom': 51},
+               {'driver': 'CLITEMP', 'value': 0, 'uom': 26}]
     id = 'MILIGHT_GROUP'
     commands = {
                     'DON': setOn,
