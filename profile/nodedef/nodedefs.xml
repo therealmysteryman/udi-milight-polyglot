@@ -8,8 +8,6 @@
         <cmds>
             <sends />
             <accepts>
-                <cmd id="DISCOVER">
-                </cmd>
             </accepts>
         </cmds>
     </nodeDef>
