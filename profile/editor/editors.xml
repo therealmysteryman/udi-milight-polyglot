@@ -5,6 +5,10 @@
         <range uom="2" subset="0,1" />
     </editor>
 
+    <editor id="MONOFF">
+        <range uom="78" subset="0,100" />
+    </editor>
+    
     <!-- Color 0 to 255 Value -->
     <editor id="MCOLOR">
         <range uom="100" min="0" max="255" step="1" prec="0" />
