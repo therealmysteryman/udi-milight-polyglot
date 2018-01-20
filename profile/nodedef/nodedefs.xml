@@ -18,11 +18,11 @@
     <nodeDef id="MILIGHT_GROUP" nls="MGR">
         <editors />
         <sts>
-            <st id="ST" editor="HCLST" />
             <st id="CLITEMP" editor="HKELVIN" />
             <st id="GV1" editor="MCOLOR" />  <!-- Color -->
             <st id="GV2" editor="MCLSAT" /> <!-- Saturation -->
             <st id="GV3" editor="MCLBRI" /> <!-- Brightness -->
+            <st id="GV4" />
         </sts>
         <cmds>
             <sends />
