@@ -142,9 +142,9 @@ class MiLightGroup(polyinterface.Node):
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         if self.grpNum == 5:
-            myMilight.setSaturation(color=intSat, zoneId=self.grpNum) 
+            myMilight.setSaturation(saturation=intSat, zoneId=self.grpNum) 
         else:
-            myMilight.setSaturation(color=intSat, zoneId=self.grpNum) 
+            myMilight.setSaturation(saturation=intSat, zoneId=self.grpNum) 
         myMilight.close()
         self.setDriver('GV2', intSat)
         
@@ -155,9 +155,9 @@ class MiLightGroup(polyinterface.Node):
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         if self.grpNum == 5:
-            myMilight.setBrightness(color=intBri, zoneId=self.grpNum) 
+            myMilight.setBrightness(brightness=intBri, zoneId=self.grpNum) 
         else:
-            myMilight.setBrightness(color=intBri, zoneId=self.grpNum) 
+            myMilight.setBrightness(brightness=intBri, zoneId=self.grpNum) 
         myMilight.close()
         self.setDriver('GV3', intBri)
 
@@ -168,9 +168,9 @@ class MiLightGroup(polyinterface.Node):
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         if self.grpNum == 5:
-            myMilight.setTemperature(color=intTemp, zoneId=self.grpNum) 
+            myMilight.setTemperature(temperature=intTemp, zoneId=self.grpNum) 
         else:
-            myMilight.setTemperature(color=intTemp, zoneId=self.grpNum) 
+            myMilight.setTemperature(temperature=intTemp, zoneId=self.grpNum) 
         myMilight.close()
         self.setDriver('CLITEMP', intTemp)
         
