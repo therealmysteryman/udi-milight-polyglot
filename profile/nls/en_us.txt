@@ -13,6 +13,7 @@ ST-GV2-NAME = Saturation
 ST-GV3-NAME = Brightness
 ST-ST-NAME = Status
 ST-CLITEMP-NAME = Temperature
+ST-SET_EFFECT-NAME = Effect
 
 CMD-DON-NAME = On
 CMD-DOF-NAME = Off
