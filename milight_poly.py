@@ -175,7 +175,7 @@ class MiLightGroup(polyinterface.Node):
         
     def setEffect(self, command):
         query = command.get('query')
-        intEffect = int(query.get('value'))
+        intEffect = int(command.get('value'))
         
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
