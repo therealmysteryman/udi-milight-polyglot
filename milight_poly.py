@@ -31,7 +31,6 @@ class Controller(polyinterface.Controller):
         try:
             if 'host' in self.polyConfig['customParams']:
                 self.host = self.polyConfig['customParams']['host']
-                LOGGER.error(self.host)
             else:
                 self.host = ""
 
