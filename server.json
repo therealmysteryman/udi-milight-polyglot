@@ -12,7 +12,7 @@
         {
             "title": "udi-milight-poly: A Polyglot v2 interface to Milight",
             "author": "Jean-Francois Tremblay",
-            "version": "0.0.0",
+            "version": "0.0.1",
             "date": "Jan 17, 2018",
             "source": "https://github.com/therealmysteryman/udi-milight-polyglot",
             "license": "https://github.com/therealmysteryman/udi-milight-polyglot/blob/master/LICENSE"
@@ -24,6 +24,14 @@
             "date": "November 8, 2017",
             "source": "https://github.com/Einstein42/udi-poly-template-python",
             "license": "https://raw.githubusercontent.com/Einstein42/udi-poly-template-python/master/LICENSE"
+        },
+	{
+            "title": "Milight Wifi Bridge 3.0 Python library",
+            "author": "Quentin Comte-Gaz",
+            "version": "1.0.0",
+            "date": "April 1, 2017",
+            "source": "https://github.com/QuentinCG/Milight-Wifi-Bridge-3.0-Python-Library",
+            "license": "https://github.com/QuentinCG/Milight-Wifi-Bridge-3.0-Python-Library/blob/master/LICENSE"
         }
     ]
 }
