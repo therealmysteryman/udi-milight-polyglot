@@ -23,6 +23,7 @@
             <st id="GV1" editor="MCOLOR" />  <!-- Color -->
             <st id="GV2" editor="MCLSAT" /> <!-- Saturation -->
             <st id="GV3" editor="MCLBRI" /> <!-- Brightness -->
+            <st id="SET_EFFECT" editor="MESEL" />
         </sts>
         <cmds>
             <sends />
