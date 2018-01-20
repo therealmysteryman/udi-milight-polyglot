@@ -23,7 +23,7 @@
             <st id="GV1" editor="MCOLOR" />  <!-- Color -->
             <st id="GV2" editor="MCLSAT" /> <!-- Saturation -->
             <st id="GV3" editor="MCLBRI" /> <!-- Brightness -->
-            <st id="SET_EFFECT" editor="MESEL" />
+            <st id="GV4" editor="MEFFECT" />
         </sts>
         <cmds>
             <sends />
@@ -45,7 +45,7 @@
                     <p id="" editor="MKELVIN" init="CLITEMP" />
                 </cmd>
                 <cmd id="SET_EFFECT">
-                    <p id="" editor="MESEL" />
+                    <p id="" editor="MEFFECT" init="GV4" />
                 </cmd>
             </accepts>
         </cmds>
