@@ -124,7 +124,7 @@ class MiLightGroup(polyinterface.Node):
         
     def setColor(self, command):
         query = command.get('query')
-        intColor = int(query.get('GV1.uom100'))
+        intColor = int(command.get('value'))
         
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
