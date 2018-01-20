@@ -176,7 +176,7 @@ class MiLightGroup(polyinterface.Node):
         
     def setEffect(self, command):
         query = command.get('query')
-        intEffect = int(query.get('MESEL.uom25'))
+        intEffect = int(query.get('value'))
         
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
@@ -185,7 +185,7 @@ class MiLightGroup(polyinterface.Node):
         else:
             myMilight.setDiscoMode(discoMode=intEffect, zoneId=self.grpNum)
         myMilight.close()
-        self.setDriver('MESEL', intEffect)
+        self.setDriver('SET_EFFECT', intEffect)
         
     def setWhiteMode(self, command):
         myMilight = MilightWifiBridge()
