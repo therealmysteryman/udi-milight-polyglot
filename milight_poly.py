@@ -42,10 +42,12 @@ class Controller(polyinterface.Controller):
 
             if self.host == "" or self.port == "" :
                 LOGGER.error('MiLight requires \'host\' parameters to be specified in custom configuration.')
+                self.setDriver('ST', o)
                 return False
             else:
+                self.setDriver('ST', 1)
                 self.discover()
-        except Exception as ex:
+        except Exception as ex:c
             LOGGER.error('Error starting MiLight NodeServer: %s', str(ex))
 
     def shortPoll(self):
@@ -70,44 +72,17 @@ class Controller(polyinterface.Controller):
         LOGGER.info('Deleting MiLight')
         
     id = 'controller'
-    commands = {'DISCOVER': discover}
+    commands = {}
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 2}]
     
 class MiLightGroup(polyinterface.Node):
-    """
-    This is the class that all the Nodes will be represented by. You will add this to
-    Polyglot/ISY with the controller.addNode method.
 
-    Class Variables:
-    self.primary: String address of the Controller node.
-    self.parent: Easy access to the Controller Class from the node itself.
-    self.address: String address of this Node 14 character limit. (ISY limitation)
-    self.added: Boolean Confirmed added to ISY
-
-    Class Methods:
-    start(): This method is called once polyglot confirms the node is added to ISY.
-    setDriver('ST', 1, report = True, force = False):
-        This sets the driver 'ST' to 1. If report is False we do not report it to
-        Polyglot/ISY. If force is True, we send a report even if the value hasn't changed.
-    reportDrivers(): Forces a full update of all drivers to Polyglot/ISY.
-    query(): Called when ISY sends a query request to Polyglot for this specific node
-    """
     def __init__(self, controller, primary, address, name):
-        """
-        Optional.
-        Super runs all the parent class necessities. You do NOT have
-        to override the __init__ method, but if you do, you MUST call super.
 
-        :param controller: Reference to the Controller class
-        :param primary: Controller address
-        :param address: This nodes address
-        :param name: This nodes name
-        """
         super(MiLightGroup, self).__init__(controller, primary, address, name)
         self.host = self.parent.host
         self.port = self.parent.port
         self.timeout = 5.0
-        
         
         # Light Group 1-4 0=ALL
         if name == 'Zone1':
@@ -124,7 +99,7 @@ class MiLightGroup(polyinterface.Node):
             self.grpNum = 0
             
     def start(self):
-        self.setDriver('ST', 1)
+        self.setDriver('ST', 0)
         pass
 
     def setOn(self, command):
@@ -132,10 +107,8 @@ class MiLightGroup(polyinterface.Node):
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         if self.grpNum == 5:
             myMilight.turnOnWifiBridgeLamp()
-            myMilight.setColor(0xBA,0)
         else:
             myMilight.turnOn(zoneId=self.grpNum)
-            myMilight.setColor(0xBA,1)
         myMilight.close()
         self.setDriver('ST', 1)
 
@@ -148,37 +121,105 @@ class MiLightGroup(polyinterface.Node):
             myMilight.turnOff(zoneId=self.grpNum)
         myMilight.close()
         self.setDriver('ST', 0)
+        
+    def setColor(self, command):
+        query = command.get('query')
+        intColor = int(query.get('GV1.uom100'))
+        
+        myMilight = MilightWifiBridge()
+        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
+        if self.grpNum == 5:
+            # milight.setColor(color=_color, zoneId=_zoneId)
+        else:
+            milight.setColor(color=intColor, zoneId=self.grpNum) 
+        myMilight.close()
+        self.setDriver('GV1', intColor)
+        
+    def setSaturation(self, command):
+        query = command.get('query')
+        intSat = int(query.get('GV2.uom51'))
+        
+        myMilight = MilightWifiBridge()
+        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
+        if self.grpNum == 5:
+            # milight.setColor(color=_color, zoneId=_zoneId)
+        else:
+            milight.setSaturation(color=intSat, zoneId=self.grpNum) 
+        myMilight.close()
+        self.setDriver('GV2', intSat)
+        
+    def setBrightness(self, command):
+        query = command.get('query')
+        intBri = int(query.get('GV3.uom51'))
+        
+        myMilight = MilightWifiBridge()
+        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
+        if self.grpNum == 5:
+            # milight.setColor(color=_color, zoneId=_zoneId)
+        else:
+            milight.setBrightness(color=intBri, zoneId=self.grpNum) 
+        myMilight.close()
+        self.setDriver('GV3', intBri)
 
+    def setTempColor(self, command):
+        query = command.get('query')
+        intTemp = int(query.get('CLITEMP.uom26'))
+        
+        myMilight = MilightWifiBridge()
+        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
+        if self.grpNum == 5:
+            # milight.setColor(color=_color, zoneId=_zoneId)
+        else:
+            milight.setTemperature(color=intTemp, zoneId=self.grpNum) 
+        myMilight.close()
+        self.setDriver('CLITEMP', intTemp)
+        
+    def setEffect(self, command):
+        query = command.get('query')
+        intEffect = int(query.get('MESEL.uom25'))
+        
+        myMilight = MilightWifiBridge()
+        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
+        if self.grpNum == 5:
+            # milight.setColor(color=_color, zoneId=_zoneId)
+        else:
+            milight.setDiscoMode(discoMode=intEffect, zoneId=self.grpNum)
+        myMilight.close()
+        
+    def setWhiteMode(self, command):
+        myMilight = MilightWifiBridge()
+        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
+        if self.grpNum == 5:
+            # milight.setColor(color=_color, zoneId=_zoneId)
+        else:
+            milight.milight.setWhiteMode(zoneId=self.grpNum)
+        myMilight.close()
+        
+    def setNightMode(self, command):
+        myMilight = MilightWifiBridge()
+        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
+        if self.grpNum == 5:
+            # milight.setColor(color=_color, zoneId=_zoneId)
+        else:
+            milight.milight.setNightMode(zoneId=self.grpNum)
+        myMilight.close()
+        
     def query(self):
-        """
-        Called by ISY to report all drivers for this node. This is done in
-        the parent class, so you don't need to override this method unless
-        there is a need.
-        """
         self.reportDrivers()
-
-
+        
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 2}]
-    """
-    Optional.
-    This is an array of dictionary items containing the variable names(drivers)
-    values and uoms(units of measure) from ISY. This is how ISY knows what kind
-    of variable to display. Check the UOM's in the WSDK for a complete list.
-    UOM 2 is boolean so the ISY will display 'True/False'
-    """
     id = 'MILIGHT_GROUP'
-    """
-    id of the node from the nodedefs.xml that is in the profile.zip. This tells
-    the ISY what fields and commands this node has.
-    """
     commands = {
-                    'DON': setOn, 'DOF': setOff
+                    'DON': setOn,
+                    'DOF': setOff,
+                    "SET_COLOR": setColor,
+                    "SET_SAT": setSaturation,
+                    "SET_BRI": setBrightness,
+                    "CLITEMP": setTempColor,
+                    "SET_EFFECT": setEffect,
+                    "WHITE_MODE": setWhiteMode,
+                    "NIGHT_MODE": setNightMode
                 }
-    """
-    This is a dictionary of commands. If ISY sends a command to the NodeServer,
-    this tells it which method to call. DON calls setOn, etc.
-    """
-
 if __name__ == "__main__":
     try:
         polyglot = polyinterface.Interface('MiLightNodeServer')
