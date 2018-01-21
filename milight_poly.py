@@ -246,10 +246,7 @@ class MiLightBridge(polyinterface.Node):
         
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        if self.grpNum == 5:
-            myMilight.setDiscoMode(discoMode=intEffect, zoneId=self.grpNum)
-        else:
-            myMilight.setDiscoMode(discoMode=intEffect, zoneId=self.grpNum)
+        #myMilight.setDiscoMode(discoMode=intEffect, zoneId=self.grpNum)
         myMilight.close()
         self.setDriver('GV4', intEffect)
         
@@ -273,8 +270,7 @@ class MiLightBridge(polyinterface.Node):
                     "SET_COLOR": setColor,
                     "SET_BRI": setBrightness,
                     "SET_EFFECT": setEffect,
-                    "WHITE_MODE": setWhiteMode,
-                    "NIGHT_MODE": setNightMode
+                    "WHITE_MODE": setWhiteMode
                 }
     
 if __name__ == "__main__":
