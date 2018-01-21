@@ -9,6 +9,7 @@ You can install it manually running
 
 1. cd ~/.polyglot/nodeservers
 2. git clone https://github.com/therealmysteryman/udi-milight-polyglot.git
+3. Add a custom variable named host containing the IP Address of the Milight iBox ( eg : host 172.16.1.40 )
 
 #### Source
 
