@@ -13,7 +13,7 @@
     <nodeDef id="MILIGHT_LIGHT" nls="MGR">
         <editors />
         <sts>
-            <st id="GV5" editor="MONOFF" />
+            <st id="ST" editor="MONOFF" />
             <st id="CLITEMP" editor="HKELVIN" />
             <st id="GV1" editor="MCOLOR" />  <!-- Color -->
             <st id="GV2" editor="MCLSAT" /> <!-- Saturation -->
@@ -48,7 +48,7 @@
         <nodeDef id="MILIGHT_BRIDGE" nls="MGR">
         <editors />
         <sts>
-            <st id="GV5" editor="MONOFF" />
+            <st id="ST" editor="MONOFF" />
             <st id="GV1" editor="MCOLOR" />  <!-- Color -->
             <st id="GV3" editor="MCLBRI" /> <!-- Brightness -->
             <st id="GV4" editor="MEFFECT" />
