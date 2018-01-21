@@ -101,14 +101,14 @@ class MiLightLight(polyinterface.Node):
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         myMilight.turnOn(zoneId=self.grpNum)
         myMilight.close()
-        self.setDriver('GV5', 100)
+        self.setDriver('ST', 100)
 
     def setOff(self, command):
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         myMilight.turnOff(zoneId=self.grpNum)
         myMilight.close()
-        self.setDriver('GV5', 0)
+        self.setDriver('ST', 0)
         
     def setColor(self, command):
         query = command.get('query')
@@ -175,7 +175,7 @@ class MiLightLight(polyinterface.Node):
     def query(self):
         self.reportDrivers()
         
-    drivers = [{'driver': 'GV5', 'value': 0, 'uom': 78},
+    drivers = [{'driver': 'ST', 'value': 0, 'uom': 78},
                {'driver': 'GV1', 'value': 0, 'uom': 100},
                {'driver': 'GV2', 'value': 0, 'uom': 51},
                {'driver': 'GV3', 'value': 0, 'uom': 51},
@@ -211,14 +211,14 @@ class MiLightBridge(polyinterface.Node):
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         myMilight.turnOnWifiBridgeLamp()
         myMilight.close()
-        self.setDriver('GV5', 100)
+        self.setDriver('ST', 100)
 
     def setOff(self, command):
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         myMilight.turnOffWifiBridgeLamp()
         myMilight.close()
-        self.setDriver('GV5', 0)
+        self.setDriver('ST', 0)
         
     def setColor(self, command):
         query = command.get('query')
@@ -259,10 +259,10 @@ class MiLightBridge(polyinterface.Node):
     def query(self):
         self.reportDrivers()
         
-    drivers = [{'driver': 'GV5', 'value': 0, 'uom': 78},
+    drivers = [{'driver': 'ST', 'value': 0, 'uom': 78},
                {'driver': 'GV1', 'value': 0, 'uom': 100},
                {'driver': 'GV3', 'value': 0, 'uom': 51},
-               {'driver': 'GV4', 'value': 1, 'uom': 100}]
+               {'driver': 'GV5', 'value': 1, 'uom': 100}]
     id = 'MILIGHT_BRIDGE'
     commands = {
                     'DON': setOn,
