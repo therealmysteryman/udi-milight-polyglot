@@ -1,5 +1,4 @@
 <nodeDefs>
-    <!-- Hub Node -->
     <nodeDef id="controller" nls="ctl">
         <editors />
         <sts>
@@ -11,9 +10,7 @@
             </accepts>
         </cmds>
     </nodeDef>
-
-    <!-- Group of Lights -->
-    <nodeDef id="MILIGHT_GROUP" nls="MGR">
+    <nodeDef id="MILIGHT_LIGHT" nls="MGR">
         <editors />
         <sts>
             <st id="GV5" editor="MONOFF" />
@@ -48,5 +45,30 @@
             </accepts>
         </cmds>
     </nodeDef>
-
+        <nodeDef id="MILIGHT_BRIDGE" nls="MGR">
+        <editors />
+        <sts>
+            <st id="GV5" editor="MONOFF" />
+            <st id="GV1" editor="MCOLOR" />  <!-- Color -->
+            <st id="GV3" editor="MCLBRI" /> <!-- Brightness -->
+            <st id="GV4" editor="MEFFECT" />
+        </sts>
+        <cmds>
+            <sends />
+            <accepts>
+                <cmd id="DON" />
+                <cmd id="DOF" />
+                <cmd id="WHITE_MODE"/>
+                <cmd id="SET_COLOR">
+                    <p id="" editor="MCOLOR" />
+                </cmd>
+                <cmd id="SET_BRI">
+                    <p id="" editor="MCLBRI" init="GV3" />
+                </cmd>
+                <cmd id="SET_EFFECT">
+                    <p id="" editor="MEFFECT" init="GV4" />
+                </cmd>
+            </accepts>
+        </cmds>
+    </nodeDef>
 </nodeDefs>
