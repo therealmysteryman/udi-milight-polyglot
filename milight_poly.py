@@ -226,7 +226,7 @@ class MiLightBridge(polyinterface.Node):
         
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        #myMilight.setColor(color=intColor, zoneId=self.grpNum) 
+        myMilight.setColorBridgeLamp(color=intColor) 
         myMilight.close()
         self.setDriver('GV1', intColor)
         
@@ -236,7 +236,7 @@ class MiLightBridge(polyinterface.Node):
         
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        #myMilight.setBrightness(brightness=intBri, zoneId=self.grpNum) 
+        myMilight.setBrightnessBridgeLamp(brightness=intBri) 
         myMilight.close()
         self.setDriver('GV3', intBri)
         
@@ -246,14 +246,14 @@ class MiLightBridge(polyinterface.Node):
         
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        #myMilight.setDiscoMode(discoMode=intEffect, zoneId=self.grpNum)
+        myMilight.setDiscoModeBridgeLamp(discoMode=intEffect)
         myMilight.close()
         self.setDriver('GV4', intEffect)
         
     def setWhiteMode(self, command):
         myMilight = MilightWifiBridge()
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        #myMilight.setWhiteMode(zoneId=self.grpNum)
+        myMilight.setWhiteModeBridgeLamp()
         myMilight.close()
   
     def query(self):
