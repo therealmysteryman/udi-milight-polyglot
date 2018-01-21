@@ -262,7 +262,7 @@ class MiLightBridge(polyinterface.Node):
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 78},
                {'driver': 'GV1', 'value': 0, 'uom': 100},
                {'driver': 'GV3', 'value': 0, 'uom': 51},
-               {'driver': 'GV5', 'value': 1, 'uom': 100}]
+               {'driver': 'GV4', 'value': 1, 'uom': 100}]
     id = 'MILIGHT_BRIDGE'
     commands = {
                     'DON': setOn,
