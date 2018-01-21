@@ -15,4 +15,4 @@ You can install it manually running
 #### Source
 
 1. Using this Python Library to control the Milight - https://github.com/QuentinCG/Milight-Wifi-Bridge-3.0-Python-Library
-2. Based on the Node Server Template - https://github.com/Einstein42
+2. Based on the Node Server Template - https://github.com/Einstein42/udi-poly-template-python
