@@ -148,7 +148,7 @@ class MiLightLight(polyinterface.Node):
         myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         myMilight.setTemperature(temperature=intTemp, zoneId=self.grpNum) 
         myMilight.close()
-        self.setDriver('CLITEMP', intTemp)
+        self.setDriver('GV5', intTemp)
         
     def setEffect(self, command):
         query = command.get('query')
@@ -179,7 +179,7 @@ class MiLightLight(polyinterface.Node):
                {'driver': 'GV1', 'value': 0, 'uom': 100},
                {'driver': 'GV2', 'value': 0, 'uom': 51},
                {'driver': 'GV3', 'value': 0, 'uom': 51},
-               {'driver': 'CLITEMP', 'value': 0, 'uom': 26},
+               {'driver': 'GV5', 'value': 0, 'uom': 51},
                {'driver': 'GV4', 'value': 1, 'uom': 100}]
     id = 'MILIGHT_LIGHT'
     commands = {
