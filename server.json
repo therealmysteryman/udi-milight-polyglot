@@ -12,7 +12,7 @@
         {
             "title": "udi-milight-poly: A Polyglot v2 interface to Milight",
             "author": "Jean-Francois Tremblay",
-            "version": "0.1.0",
+            "version": "0.1.5",
             "date": "Jan 20, 2018",
             "source": "https://github.com/therealmysteryman/udi-milight-polyglot",
             "license": "https://github.com/therealmysteryman/udi-milight-polyglot/blob/master/LICENSE"
