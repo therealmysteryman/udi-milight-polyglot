@@ -41,7 +41,7 @@ class Controller(polyinterface.Controller):
 
             if self.host == "" or self.port == "" :
                 LOGGER.error('MiLight requires \'host\' parameters to be specified in custom configuration.')
-                self.setDriver('ST', o)
+                self.setDriver('ST', 0)
                 return False
             else:
                 self.setDriver('ST', 1)
@@ -199,7 +199,10 @@ class MiLightBridge(polyinterface.Node):
         self.timeout = 5.0
             
     def start(self):
-        pass
+        self.setDriver('ST', 0)
+        self.setDriver('GV1', 0)
+        self.setDriver('GV3', 100)
+        self.setDriver('GV4', 1)
 
     def setOn(self, command):
         myMilight = MilightWifiBridge()
