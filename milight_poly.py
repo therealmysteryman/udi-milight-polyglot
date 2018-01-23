@@ -111,7 +111,6 @@ class MiLightLight(polyinterface.Node):
         self.setDriver('ST', 0)
         
     def setColor(self, command):
-        query = command.get('query')
         intColor = int(command.get('value'))
         
         myMilight = MilightWifiBridge()
@@ -121,7 +120,6 @@ class MiLightLight(polyinterface.Node):
         self.setDriver('GV1', intColor)
         
     def setSaturation(self, command):
-        query = command.get('query')
         intSat = int(command.get('value'))
         
         myMilight = MilightWifiBridge()
@@ -131,7 +129,6 @@ class MiLightLight(polyinterface.Node):
         self.setDriver('GV2', intSat)
         
     def setBrightness(self, command):
-        query = command.get('query')
         intBri = int(command.get('value'))
         
         myMilight = MilightWifiBridge()
@@ -141,7 +138,6 @@ class MiLightLight(polyinterface.Node):
         self.setDriver('GV3', intBri)
 
     def setTempColor(self, command):
-        query = command.get('query')
         intTemp = int(command.get('value'))
         
         myMilight = MilightWifiBridge()
@@ -151,7 +147,6 @@ class MiLightLight(polyinterface.Node):
         self.setDriver('GV5', intTemp)
         
     def setEffect(self, command):
-        query = command.get('query')
         intEffect = int(command.get('value'))
         
         myMilight = MilightWifiBridge()
@@ -221,7 +216,6 @@ class MiLightBridge(polyinterface.Node):
         self.setDriver('ST', 0)
         
     def setColor(self, command):
-        query = command.get('query')
         intColor = int(command.get('value'))
         
         myMilight = MilightWifiBridge()
@@ -231,7 +225,6 @@ class MiLightBridge(polyinterface.Node):
         self.setDriver('GV1', intColor)
         
     def setBrightness(self, command):
-        query = command.get('query')
         intBri = int(command.get('value'))
         
         myMilight = MilightWifiBridge()
@@ -241,7 +234,6 @@ class MiLightBridge(polyinterface.Node):
         self.setDriver('GV3', intBri)
         
     def setEffect(self, command):
-        query = command.get('query')
         intEffect = int(command.get('value'))
         
         myMilight = MilightWifiBridge()
