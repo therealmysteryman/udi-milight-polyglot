@@ -83,7 +83,6 @@ class MiLightLight(polyinterface.Node):
         self.port = self.parent.port
         self.timeout = 5.0
         
-        # Light Group 1-4 0=ALL
         if name == 'Zone1':
             self.grpNum = 1
         elif name == 'Zone2':
@@ -94,7 +93,12 @@ class MiLightLight(polyinterface.Node):
             self.grpNum = 4
             
     def start(self):
-        pass
+        self.setDriver('ST', 0)
+        self.setDriver('GV1', 0)
+        self.setDriver('GV2', 0)
+        self.setDriver('GV3', 100)
+        self.setDriver('GV4', 1)
+        self.setDriver('GV5', 0)
 
     def setOn(self, command):
         myMilight = MilightWifiBridge()
