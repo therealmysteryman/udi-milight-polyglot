@@ -1,7 +1,5 @@
 # controller
-ND-MILIGHTB-NAME = Milight
-CMD-MILIGHT-DISCOVER-NAME = Re-Discover
-ST-MILIGHT-ST-NAME = Connected
+ST-controller-ST-NAME = Connected
 
 ND-MILIGHT_LIGHT-NAME = Milight Light
 ND-MILIGHT_LIGHT-ICON = Lamp
@@ -16,7 +14,6 @@ ST-GV3-NAME = Brightness
 ST-GV4-NAME = Effect
 ST-GV5-NAME = Status
 ST-CLITEMP-NAME = Temperature
-
 
 CMD-DON-NAME = On
 CMD-DOF-NAME = Off
