@@ -56,6 +56,7 @@ class Controller(polyinterface.Controller):
         pass
 
     def query(self):
+        self.reportDrivers()
         for node in self.nodes:
             self.nodes[node].reportDrivers()
 
@@ -81,8 +82,10 @@ class MiLightLight(polyinterface.Node):
         super(MiLightLight, self).__init__(controller, primary, address, name)
         self.host = self.parent.host
         self.port = self.parent.port
+        self.myMilight = None
         self.timeout = 5.0
         
+        # Set Zone
         if name == 'Zone1':
             self.grpNum = 1
         elif name == 'Zone2':
@@ -91,88 +94,93 @@ class MiLightLight(polyinterface.Node):
             self.grpNum = 3
         elif name == 'Zone4':
             self.grpNum = 4
-            
-    def start(self):
+         
+        # Initial Value
         self.setDriver('ST', 0)
         self.setDriver('GV1', 0)
         self.setDriver('GV2', 0)
         self.setDriver('GV3', 100)
         self.setDriver('GV4', 1)
         self.setDriver('GV5', 0)
+            
+    def start(self):
+        pass 
 
     def setOn(self, command):
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.turnOn(zoneId=self.grpNum)
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.turnOn(zoneId=self.grpNum)
+        self._MilightDisconnect()
         self.setDriver('ST', 100)
 
     def setOff(self, command):
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.turnOff(zoneId=self.grpNum)
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.turnOff(zoneId=self.grpNum)
+        self._MilightDisconnect()
         self.setDriver('ST', 0)
         
     def setColor(self, command):
         intColor = int(command.get('value'))
         
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.setColor(color=intColor, zoneId=self.grpNum) 
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.setColor(color=intColor, zoneId=self.grpNum) 
+        self._MilightDisconnect()
         self.setDriver('GV1', intColor)
         
     def setSaturation(self, command):
         intSat = int(command.get('value'))
         
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.setSaturation(saturation=intSat, zoneId=self.grpNum) 
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.setSaturation(saturation=intSat, zoneId=self.grpNum) 
+        self._MilightDisconnect()
         self.setDriver('GV2', intSat)
         
     def setBrightness(self, command):
         intBri = int(command.get('value'))
         
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.setBrightness(brightness=intBri, zoneId=self.grpNum) 
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.setBrightness(brightness=intBri, zoneId=self.grpNum) 
+        self._MilightDisconnect()
         self.setDriver('GV3', intBri)
 
     def setTempColor(self, command):
         intTemp = int(command.get('value'))
         
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.setTemperature(temperature=intTemp, zoneId=self.grpNum) 
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.setTemperature(temperature=intTemp, zoneId=self.grpNum) 
+        self._MilightDisconnect()
         self.setDriver('GV5', intTemp)
         
     def setEffect(self, command):
         intEffect = int(command.get('value'))
         
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.setDiscoMode(discoMode=intEffect, zoneId=self.grpNum)
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.setDiscoMode(discoMode=intEffect, zoneId=self.grpNum)
+        self._MilightDisconnect()
         self.setDriver('GV4', intEffect)
         
     def setWhiteMode(self, command):
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.setWhiteMode(zoneId=self.grpNum)
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.setWhiteMode(zoneId=self.grpNum)
+        self._MilightDisconnect()
         
     def setNightMode(self, command):
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.setNightMode(zoneId=self.grpNum)
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.setNightMode(zoneId=self.grpNum)
+        self._MilightDisconnect()
         
     def query(self):
         self.reportDrivers()
+     
+    def _MilightConnect(self):
+        try:
+            self.myMilight = MilightWifiBridge()
+            self.myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
+         except Exception as ex:
+            LOGGER.error('Error connecting to MiLight: %s', str(ex))
+
+    def _MilightDisconnect(self):
+        self.myMilight.close()
+        self.myMilight = None
         
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 78},
                {'driver': 'GV1', 'value': 0, 'uom': 100},
@@ -200,64 +208,73 @@ class MiLightBridge(polyinterface.Node):
         super(MiLightBridge, self).__init__(controller, primary, address, name)
         self.host = self.parent.host
         self.port = self.parent.port
+        self.myMilight = None
         self.timeout = 5.0
-            
-    def start(self):
+        
+        # Init Value
         self.setDriver('ST', 0)
         self.setDriver('GV1', 0)
         self.setDriver('GV3', 100)
         self.setDriver('GV4', 1)
+            
+    def start(self):
+        pass
 
     def setOn(self, command):
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.turnOnWifiBridgeLamp()
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.turnOnWifiBridgeLamp()
+        self._MilightDisconnect()
         self.setDriver('ST', 100)
 
     def setOff(self, command):
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.turnOffWifiBridgeLamp()
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.turnOffWifiBridgeLamp()
+        self._MilightDisconnect()
         self.setDriver('ST', 0)
         
     def setColor(self, command):
         intColor = int(command.get('value'))
         
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.setColorBridgeLamp(color=intColor) 
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.setColorBridgeLamp(color=intColor) 
+        self._MilightDisconnect()
         self.setDriver('GV1', intColor)
         
     def setBrightness(self, command):
         intBri = int(command.get('value'))
         
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.setBrightnessBridgeLamp(brightness=intBri) 
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.setBrightnessBridgeLamp(brightness=intBri) 
+        self._MilightDisconnect()
         self.setDriver('GV3', intBri)
         
     def setEffect(self, command):
         intEffect = int(command.get('value'))
         
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.setDiscoModeBridgeLamp(discoMode=intEffect)
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.setDiscoModeBridgeLamp(discoMode=intEffect)
+        self._MilightDisconnect()
         self.setDriver('GV4', intEffect)
         
     def setWhiteMode(self, command):
-        myMilight = MilightWifiBridge()
-        myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-        myMilight.setWhiteModeBridgeLamp()
-        myMilight.close()
+        self._MilightConnect()
+        self.myMilight.setWhiteModeBridgeLamp()
+        self._MilightDisconnect()
   
     def query(self):
         self.reportDrivers()
-        
+    
+    def _MilightConnect(self):
+        try:
+            self.myMilight = MilightWifiBridge()
+            self.myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
+         except Exception as ex:
+            LOGGER.error('Error connecting to MiLight: %s', str(ex))
+
+    def _MilightDisconnect(self):
+        self.myMilight.close()
+        self.myMilight = None
+    
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 78},
                {'driver': 'GV1', 'value': 0, 'uom': 100},
                {'driver': 'GV3', 'value': 0, 'uom': 51},
