@@ -268,7 +268,7 @@ class MiLightBridge(polyinterface.Node):
         try:
             self.myMilight = MilightWifiBridge()
             self.myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
-         except Exception as ex:
+        except Exception as ex:
             LOGGER.error('Error connecting to MiLight Hub: %s', str(ex))
 
     def _MilightDisconnect(self):
