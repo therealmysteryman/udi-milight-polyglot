@@ -208,7 +208,7 @@ class MiLightBridge(polyinterface.Node):
         super(MiLightBridge, self).__init__(controller, primary, address, name)
         self.host = self.parent.host
         self.port = self.parent.port
-        self.myMilight = None
+        self.myMilight = MilightWifiBridge()
         self.timeout = 5.0
         
         # Init Value
@@ -221,7 +221,7 @@ class MiLightBridge(polyinterface.Node):
         pass
 
     def setOn(self, command):
-        self.MilightConnect()
+        self.__MilightConnect()
         #self.myMilight.turnOnWifiBridgeLamp()
         #self._MilightDisconnect()
         self.setDriver('ST', 100)
@@ -264,16 +264,14 @@ class MiLightBridge(polyinterface.Node):
     def query(self):
         self.reportDrivers()
     
-    def MilightConnect(self):
+    def __MilightConnect(self):
         try:
-            self.myMilight = MilightWifiBridge()
             self.myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
         except Exception as ex:
             LOGGER.error('Error connecting to MiLight Hub: %s', str(ex))
 
     def __MilightDisconnect(self):
         self.myMilight.close()
-        self.myMilight = None
     
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 78},
                {'driver': 'GV1', 'value': 0, 'uom': 100},
