@@ -264,7 +264,7 @@ class MiLightBridge(polyinterface.Node):
     def query(self):
         self.reportDrivers()
     
-    def __MilightConnect(self):
+    def MilightConnect(self):
         try:
             self.myMilight = MilightWifiBridge()
             self.myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
