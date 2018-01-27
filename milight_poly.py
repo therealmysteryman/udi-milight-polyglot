@@ -221,15 +221,15 @@ class MiLightBridge(polyinterface.Node):
         pass
 
     def setOn(self, command):
-        self._MilightConnect()
-        self.myMilight.turnOnWifiBridgeLamp()
-        self._MilightDisconnect()
+        #self._MilightConnect()
+        #self.myMilight.turnOnWifiBridgeLamp()
+        #self._MilightDisconnect()
         self.setDriver('ST', 100)
 
     def setOff(self, command):
-        self._MilightConnect()
-        self.myMilight.turnOffWifiBridgeLamp()
-        self._MilightDisconnect()
+        #self._MilightConnect()
+        #self.myMilight.turnOffWifiBridgeLamp()
+        #self._MilightDisconnect()
         self.setDriver('ST', 0)
         
     def setColor(self, command):
