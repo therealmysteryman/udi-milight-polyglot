@@ -58,7 +58,6 @@ class Controller(polyinterface.Controller):
     def query(self):
         for node in self.nodes:
             self.nodes[node].reportDrivers()
-        self.reportDrivers()
         
     def discover(self, *args, **kwargs):
         time.sleep(1)
@@ -169,7 +168,7 @@ class MiLightLight(polyinterface.Node):
         self.__MilightDisconnect()
         
     def query(self):
-        self.reportDrivers()
+        pass
      
     def __MilightConnect(self):
         try:
@@ -220,14 +219,14 @@ class MiLightBridge(polyinterface.Node):
 
     def setOn(self, command):
         self.__MilightConnect()
-        #self.myMilight.turnOnWifiBridgeLamp()
-        #self._MilightDisconnect()
+        self.myMilight.turnOnWifiBridgeLamp()
+        self.__MilightDisconnect()
         self.setDriver('ST', 100)
 
     def setOff(self, command):
         self.__MilightConnect()
-        #self.myMilight.turnOffWifiBridgeLamp()
-        #self._MilightDisconnect()
+        self.myMilight.turnOffWifiBridgeLamp()
+        self.__MilightDisconnect()
         self.setDriver('ST', 0)
         
     def setColor(self, command):
@@ -260,7 +259,7 @@ class MiLightBridge(polyinterface.Node):
         self.__MilightDisconnect()
   
     def query(self):
-        self.reportDrivers()
+        pass
     
     def __MilightConnect(self):
         try:
