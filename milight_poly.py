@@ -208,7 +208,6 @@ class MiLightBridge(polyinterface.Node):
         super(MiLightBridge, self).__init__(controller, primary, address, name)
         self.host = self.parent.host
         self.port = self.parent.port
-        self.myMilight = MilightWifiBridge()
         self.timeout = 5.0
         
         # Init Value
