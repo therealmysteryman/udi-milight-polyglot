@@ -46,6 +46,7 @@ class Controller(polyinterface.Controller):
             else:
                 self.setDriver('ST', 1)
                 self.discover()
+                self.reportDrivers()
         except Exception as ex:
             LOGGER.error('Error starting MiLight NodeServer: %s', str(ex))
 
@@ -66,7 +67,7 @@ class Controller(polyinterface.Controller):
         self.addNode(MiLightLight(self, self.address, 'zone2', 'Zone2'))
         self.addNode(MiLightLight(self, self.address, 'zone3', 'Zone3'))
         self.addNode(MiLightLight(self, self.address, 'zone4', 'Zone4'))
-
+        
     def delete(self):
         LOGGER.info('Deleting MiLight')
         
