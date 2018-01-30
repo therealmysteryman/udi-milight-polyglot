@@ -53,7 +53,7 @@ class Controller(polyinterface.Controller):
         pass
 
     def longPoll(self):
-        pass
+        self.reportDrivers()
 
     def query(self):
         for node in self.nodes:
