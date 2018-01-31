@@ -46,7 +46,6 @@ class Controller(polyinterface.Controller):
             else:
                 self.setDriver('ST', 1)
                 self.discover()
-                
                 self.reportDrivers()
         except Exception as ex:
             LOGGER.error('Error starting MiLight NodeServer: %s', str(ex))
@@ -103,7 +102,7 @@ class MiLightLight(polyinterface.Node):
         self.setDriver('GV3', 100)
         self.setDriver('GV4', 1)
         self.setDriver('GV5', 0)
-            
+        self.reportDrivers()
     def start(self):
         pass 
 
@@ -216,6 +215,7 @@ class MiLightBridge(polyinterface.Node):
         self.setDriver('GV1', 0)
         self.setDriver('GV3', 100)
         self.setDriver('GV4', 1)
+        self.reportDrivers()
        
     def start(self):
         pass
