@@ -28,6 +28,7 @@ class Controller(polyinterface.Controller):
 
     def start(self):
         LOGGER.info('Started MiLight for v2 NodeServer version %s', str(VERSION))
+        self.setDriver('ST', 0)
         try:
             if 'host' in self.polyConfig['customParams']:
                 self.host = self.polyConfig['customParams']['host']
@@ -41,7 +42,6 @@ class Controller(polyinterface.Controller):
 
             if self.host == "" or self.port == "" :
                 LOGGER.error('MiLight requires \'host\' parameters to be specified in custom configuration.')
-                self.setDriver('ST', 0)
                 return False
             else:
                 self.setDriver('ST', 1)
@@ -54,11 +54,10 @@ class Controller(polyinterface.Controller):
         pass
 
     def longPoll(self):
-        self.reportDrivers()
+        pass
 
     def query(self):
-        for node in self.nodes:
-            self.nodes[node].reportDrivers()
+       self.reportDrivers()
         
     def discover(self, *args, **kwargs):
         time.sleep(1)
@@ -83,7 +82,6 @@ class MiLightLight(polyinterface.Node):
         self.host = self.parent.host
         self.port = self.parent.port
         self.myMilight = None
-        self.timeout = 5.0
         
         # Set Zone
         if name == 'Zone1':
@@ -94,18 +92,17 @@ class MiLightLight(polyinterface.Node):
             self.grpNum = 3
         elif name == 'Zone4':
             self.grpNum = 4
-         
+            
+    def start(self):
         # Initial Value
         self.setDriver('ST', 0)
         self.setDriver('GV1', 0)
         self.setDriver('GV2', 0)
         self.setDriver('GV3', 100)
         self.setDriver('GV4', 1)
-        self.setDriver('GV5', 0)
-            
-    def start(self):
-        pass 
-
+        self.setDriver('GV5', 0) 
+        self.reportDrivers()
+        
     def setOn(self, command):
         self.__MilightConnect()
         self.myMilight.turnOn(zoneId=self.grpNum)
@@ -169,7 +166,7 @@ class MiLightLight(polyinterface.Node):
         self.__MilightDisconnect()
         
     def query(self):
-        pass
+        self.reportDrivers()
      
     def __MilightConnect(self):
         try:
@@ -209,28 +206,27 @@ class MiLightBridge(polyinterface.Node):
         self.host = self.parent.host
         self.port = self.parent.port
         self.myMilight = None
-        self.timeout = 5.0
-        
-        # Init Value
+             
+    def start(self):
+         # Init Value
         self.setDriver('ST', 0)
         self.setDriver('GV1', 0)
         self.setDriver('GV3', 100)
         self.setDriver('GV4', 1)
-            
-    def start(self):
-        pass
+        
+        self.reportDrivers()
 
     def setOn(self, command):
         self.__MilightConnect()
         self.myMilight.turnOnWifiBridgeLamp()
         self.__MilightDisconnect()
-        #self.setDriver('ST', 100)
+        self.setDriver('ST', 100)
 
     def setOff(self, command):
         self.__MilightConnect()
         self.myMilight.turnOffWifiBridgeLamp()
         self.__MilightDisconnect()
-        #self.setDriver('ST', 0)
+        self.setDriver('ST', 0)
         
     def setColor(self, command):
         intColor = int(command.get('value'))
@@ -262,7 +258,7 @@ class MiLightBridge(polyinterface.Node):
         self.__MilightDisconnect()
   
     def query(self):
-        pass
+        self.reportDrivers()
     
     def __MilightConnect(self):
         try:
