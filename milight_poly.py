@@ -207,7 +207,9 @@ class MiLightBridge(polyinterface.Node):
         self.timeout = 5.0
         self.host = self.parent.host
         self.port = self.parent.port
-        self.myMilight = None
+        
+        self.myMilight = MilightWifiBridge()
+        self.myMilight.setup(ip=self.host, port=self.port, timeout_sec=self.timeout)
              
     def start(self):
         # Init Value
@@ -221,16 +223,16 @@ class MiLightBridge(polyinterface.Node):
         self.reportDrivers()
         self.setDriver('ST', 100, True)
         self.reportDrivers()
-        self.__MilightConnect()
-        #self.myMilight.turnOnWifiBridgeLamp()
+        #self.__MilightConnect()
+        self.myMilight.turnOnWifiBridgeLamp()
         #self.__MilightDisconnect()
 
     def setOff(self, command):
         self.reportDrivers()
         self.setDriver('ST', 0, True)
         self.reportDrivers()
-        self.__MilightConnect()
-        #self.myMilight.turnOffWifiBridgeLamp()
+        #self.__MilightConnect()
+        self.myMilight.turnOffWifiBridgeLamp()
         #self.__MilightDisconnect()
         
     def setColor(self, command):
