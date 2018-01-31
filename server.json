@@ -12,8 +12,8 @@
         {
             "title": "udi-milight-poly: A Polyglot v2 interface to Milight Protocol V6",
             "author": "Jean-Francois Tremblay",
-            "version": "0.1.6",
-            "date": "Jan 26, 2018",
+            "version": "0.1.7",
+            "date": "Jan 30, 2018",
             "source": "https://github.com/therealmysteryman/udi-milight-polyglot",
             "license": "https://github.com/therealmysteryman/udi-milight-polyglot/blob/master/LICENSE"
         },
