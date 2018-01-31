@@ -102,7 +102,7 @@ class MiLightLight(polyinterface.Node):
         #self.setDriver('GV3', 100)
         #self.setDriver('GV4', 1)
         #self.setDriver('GV5', 0) 
-        #self.reportDrivers()
+        self.reportDrivers()
         
     def setOn(self, command):
         self.__MilightConnect()
@@ -210,12 +210,11 @@ class MiLightBridge(polyinterface.Node):
         self.myMilight = None
              
     def start(self):
-         # Init Value
+        # Init Value
         #self.setDriver('ST', 0)
         #self.setDriver('GV1', 0)
         #self.setDriver('GV3', 100)
         #self.setDriver('GV4', 1)
-        
         self.reportDrivers()
 
     def setOn(self, command):
