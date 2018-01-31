@@ -79,6 +79,7 @@ class MiLightLight(polyinterface.Node):
     def __init__(self, controller, primary, address, name):
 
         super(MiLightLight, self).__init__(controller, primary, address, name)
+        self.timeout = 5.0
         self.host = self.parent.host
         self.port = self.parent.port
         self.myMilight = None
@@ -203,6 +204,7 @@ class MiLightBridge(polyinterface.Node):
     def __init__(self, controller, primary, address, name):
 
         super(MiLightBridge, self).__init__(controller, primary, address, name)
+        self.timeout = 5.0
         self.host = self.parent.host
         self.port = self.parent.port
         self.myMilight = None
