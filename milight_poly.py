@@ -111,13 +111,13 @@ class MiLightLight(polyinterface.Node):
         self.__MilightConnect()
         self.myMilight.turnOn(zoneId=self.grpNum)
         self.__MilightDisconnect()
-        self.setDriver('ST', 100, true)
+        self.setDriver('ST', 100, True)
 
     def setOff(self, command):
         self.__MilightConnect()
         self.myMilight.turnOff(zoneId=self.grpNum)
         self.__MilightDisconnect()
-        self.setDriver('ST', 0, true)
+        self.setDriver('ST', 0, True)
         
     def setColor(self, command):
         intColor = int(command.get('value'))
@@ -125,7 +125,7 @@ class MiLightLight(polyinterface.Node):
         self.__MilightConnect()
         self.myMilight.setColor(color=intColor, zoneId=self.grpNum) 
         self.__MilightDisconnect()
-        self.setDriver('GV1', intColor, true)
+        self.setDriver('GV1', intColor, True)
         
     def setSaturation(self, command):
         intSat = int(command.get('value'))
@@ -133,7 +133,7 @@ class MiLightLight(polyinterface.Node):
         self.__MilightConnect()
         self.myMilight.setSaturation(saturation=intSat, zoneId=self.grpNum) 
         self.__MilightDisconnect()
-        self.setDriver('GV2', intSat, true)
+        self.setDriver('GV2', intSat, True)
         
     def setBrightness(self, command):
         intBri = int(command.get('value'))
@@ -141,7 +141,7 @@ class MiLightLight(polyinterface.Node):
         self.__MilightConnect()
         self.myMilight.setBrightness(brightness=intBri, zoneId=self.grpNum) 
         self.__MilightDisconnect()
-        self.setDriver('GV3', intBri, true)
+        self.setDriver('GV3', intBri, True)
 
     def setTempColor(self, command):
         intTemp = int(command.get('value'))
@@ -149,7 +149,7 @@ class MiLightLight(polyinterface.Node):
         self.__MilightConnect()
         self.myMilight.setTemperature(temperature=intTemp, zoneId=self.grpNum) 
         self.__MilightDisconnect()
-        self.setDriver('GV5', intTemp, true)
+        self.setDriver('GV5', intTemp, True)
         
     def setEffect(self, command):
         intEffect = int(command.get('value'))
@@ -157,7 +157,7 @@ class MiLightLight(polyinterface.Node):
         self.__MilightConnect()
         self.myMilight.setDiscoMode(discoMode=intEffect, zoneId=self.grpNum)
         self.__MilightDisconnect()
-        self.setDriver('GV4', intEffect, true)
+        self.setDriver('GV4', intEffect, True)
         
     def setWhiteMode(self, command):
         self.__MilightConnect()
@@ -224,13 +224,13 @@ class MiLightBridge(polyinterface.Node):
         self.__MilightConnect()
         self.myMilight.turnOnWifiBridgeLamp()
         self.__MilightDisconnect()
-        self.setDriver('ST', 100, true)
+        self.setDriver('ST', 100, True)
 
     def setOff(self, command):
         self.__MilightConnect()
         self.myMilight.turnOffWifiBridgeLamp()
         self.__MilightDisconnect()
-        self.setDriver('ST', 0, true)
+        self.setDriver('ST', 0, True)
         
     def setColor(self, command):
         intColor = int(command.get('value'))
@@ -246,7 +246,7 @@ class MiLightBridge(polyinterface.Node):
         self.__MilightConnect()
         self.myMilight.setBrightnessBridgeLamp(brightness=intBri) 
         self.__MilightDisconnect()
-        self.setDriver('GV3', intBri, true)
+        self.setDriver('GV3', intBri, True)
         
     def setEffect(self, command):
         intEffect = int(command.get('value'))
@@ -254,7 +254,7 @@ class MiLightBridge(polyinterface.Node):
         self.__MilightConnect()
         self.myMilight.setDiscoModeBridgeLamp(discoMode=intEffect)
         self.__MilightDisconnect()
-        self.setDriver('GV4', intEffect, true)
+        self.setDriver('GV4', intEffect, True)
         
     def setWhiteMode(self, command):
         self.__MilightConnect()
