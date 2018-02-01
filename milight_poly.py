@@ -23,7 +23,7 @@ class Controller(polyinterface.Controller):
         self.name = 'MiLight'
         self.initialized = False
         self.milight_host = ""
-        self.milight_host = 5987
+        self.milight_port = 5987
         self.tries = 0
 
     def start(self):
@@ -36,9 +36,9 @@ class Controller(polyinterface.Controller):
                 self.milight_host = ""
 
             if 'port' in self.polyConfig['customParams']:
-                self.milight_host = self.polyConfig['customParams']['port']
+                self.milight_port = self.polyConfig['customParams']['port']
             else:
-                self.milight_host = 5987
+                self.milight_port = 5987
 
             if self.milight_host == "" :
                 LOGGER.error('MiLight requires \'host\' parameters to be specified in custom configuration.')
