@@ -374,7 +374,7 @@ class MilightWifiBridge:
                 # logging.debug("Received valid response for previously sent request")
               else:
                 # logging.warning("Invalid sequence number ack {} instead of {}".format(str(data[6]),
-                                                                                      self.__sequence_number))
+                #                                                                      self.__sequence_number))
             else:
               # logging.warning("Invalid response size {} instead of 8".format(str(len(data))))
           except socket.timeout:
@@ -384,6 +384,7 @@ class MilightWifiBridge:
       else:
         # logging.error("Invalid zone {} (must be between 0 and 4)".format(str(zoneId)))
     else:
+      pass
       # logging.error("Invalid command size {} instead of 9".format(str(len(bytearray(command)))))
 
     return returnValue
