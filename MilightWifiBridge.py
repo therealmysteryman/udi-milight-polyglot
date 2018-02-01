@@ -38,9 +38,9 @@ import time
 import collections
 import sys, getopt
 import binascii
+# import logging
 
 class MilightWifiBridge:
-  import logging
   """Milight 3.0 Wifi Bridge class
 
   Calling setup() function is necessary in order to make this class work properly.
@@ -260,7 +260,6 @@ class MilightWifiBridge:
 
   ################################### SETUP ####################################
   def close(self):
-    import logging
     """Close connection with Milight wifi bridge"""
     self.__initialized = False
     self.__sequence_number = 0
@@ -268,13 +267,12 @@ class MilightWifiBridge:
     try:
       self.__sock.shutdown(socket.SHUT_RDWR)
       self.__sock.close()
-      logging.debug("Socket closed")
+      # logging.debug("Socket closed")
     # If close before initialization, better handle attribute error
     except AttributeError:
       pass
 
   def setup(self, ip, port=5987, timeout_sec=5.0):
-    import logging
     """Initialize the class (can be launched multiple time if setup changed or module crashed)
 
     Keyword arguments:
@@ -295,9 +293,9 @@ class MilightWifiBridge:
       self.__sock.connect((self.__ip, self.__port))
       self.__sock.settimeout(timeout_sec)
       self.__initialized = True
-      logging.debug("UDP connection initialized with ip {} and port {}".format(str(ip), str(port)))
+      # logging.debug("UDP connection initialized with ip {} and port {}".format(str(ip), str(port)))
     except (socket.error, socket.herror, socket.gaierror, socket.timeout) as e:
-      logging.error("Impossible to initialize the UDP connection with ip {} and port {}".format(str(ip), str(port)))
+      # logging.error("Impossible to initialize the UDP connection with ip {} and port {}".format(str(ip), str(port)))
       pass
 
     return self.__initialized
@@ -313,8 +311,8 @@ class MilightWifiBridge:
     """
     # Send start session request
     data_to_send = MilightWifiBridge.__START_SESSION_MSG
-    logging.debug("Sending frame '{}' to {}:{}".format(str(binascii.hexlify(data_to_send)),
-                                                     str(self.__ip), str(self.__port)))
+    # logging.debug("Sending frame '{}' to {}:{}".format(str(binascii.hexlify(data_to_send)),
+    #                                                 str(self.__ip), str(self.__port)))
     self.__sock.sendto(data_to_send, (self.__ip, self.__port))
     response = MilightWifiBridge.__START_SESSION_RESPONSE(responseReceived=False, mac="", sessionId1=-1, sessionId2=-1)
 
@@ -332,12 +330,12 @@ class MilightWifiBridge:
                                                                                                  format(data[12], 'x'))),
                                                               sessionId1=int(data[19]),
                                                               sessionId2=int(data[20]))
-        logging.debug("Start session (mac address: {}, session ID 1: {}, session ID 2: {})"
-                      .format(str(response.mac), str(response.sessionId1), str(response.sessionId2)))
+       # logging.debug("Start session (mac address: {}, session ID 1: {}, session ID 2: {})"
+       #               .format(str(response.mac), str(response.sessionId1), str(response.sessionId2)))
       else:
-        logging.warning("Invalid start session response size")
+        # logging.warning("Invalid start session response size")
     except socket.timeout:
-      logging.warning("Timed out for start session response")
+      # logging.warning("Timed out for start session response")
 
     return response
 
@@ -371,9 +369,9 @@ class MilightWifiBridge:
           bytesToSend += bytearray([int(MilightWifiBridge.__calculateCheckSum(bytearray(command), int(zoneId)))])
 
           # Send request frame
-          logging.debug("Sending request with command '{}' with session ID 1 '{}', session ID 2 '{}' and sequence number '{}'"
-                        .format(str(binascii.hexlify(command)), str(startSessionResponse.sessionId1),
-                                str(startSessionResponse.sessionId2), str(self.__sequence_number)))
+          # logging.debug("Sending request with command '{}' with session ID 1 '{}', session ID 2 '{}' and sequence number '{}'"
+          #              .format(str(binascii.hexlify(command)), str(startSessionResponse.sessionId1),
+          #                      str(startSessionResponse.sessionId2), str(self.__sequence_number)))
           self.__sock.sendto(bytesToSend, (self.__ip, self.__port))
           try:
             # Receive response frame
@@ -381,20 +379,20 @@ class MilightWifiBridge:
             if len(data) == 8:
               if data[6] == self.__sequence_number:
                 returnValue = True
-                logging.debug("Received valid response for previously sent request")
+                # logging.debug("Received valid response for previously sent request")
               else:
-                logging.warning("Invalid sequence number ack {} instead of {}".format(str(data[6]),
+                # logging.warning("Invalid sequence number ack {} instead of {}".format(str(data[6]),
                                                                                       self.__sequence_number))
             else:
-              logging.warning("Invalid response size {} instead of 8".format(str(len(data))))
+              # logging.warning("Invalid response size {} instead of 8".format(str(len(data))))
           except socket.timeout:
-            logging.warning("Timed out for response")
+            # logging.warning("Timed out for response")
         else:
-          logging.warning("Start session failed")
+          # logging.warning("Start session failed")
       else:
-        logging.error("Invalid zone {} (must be between 0 and 4)".format(str(zoneId)))
+        # logging.error("Invalid zone {} (must be between 0 and 4)".format(str(zoneId)))
     else:
-      logging.error("Invalid command size {} instead of 9".format(str(len(bytearray(command)))))
+      # logging.error("Invalid command size {} instead of 9".format(str(len(bytearray(command)))))
 
     return returnValue
 
@@ -409,7 +407,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__ON_CMD, zoneId)
-    logging.debug("Turn on zone {}: {}".format(str(zoneId), str(returnValue)))
+    # logging.debug("Turn on zone {}: {}".format(str(zoneId), str(returnValue)))
     return returnValue
 
   def turnOff(self, zoneId):
@@ -421,7 +419,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__OFF_CMD, zoneId)
-    logging.debug("Turn off zone {}: {}".format(str(zoneId), str(returnValue)))
+    # logging.debug("Turn off zone {}: {}".format(str(zoneId), str(returnValue)))
     return returnValue
 
   def turnOnWifiBridgeLamp(self):
@@ -430,7 +428,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__WIFI_BRIDGE_LAMP_ON_CMD, 0x01)
-    logging.debug("Turn on wifi bridge lamp: {}".format(str(returnValue)))
+    # logging.debug("Turn on wifi bridge lamp: {}".format(str(returnValue)))
     return returnValue
 
   def turnOffWifiBridgeLamp(self):
@@ -439,7 +437,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__WIFI_BRIDGE_LAMP_OFF_CMD, 0x01)
-    logging.debug("Turn off wifi bridge lamp: {}".format(str(returnValue)))
+    # logging.debug("Turn off wifi bridge lamp: {}".format(str(returnValue)))
     return returnValue
 
   def setNightMode(self, zoneId):
@@ -451,7 +449,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__NIGHT_MODE_CMD, zoneId)
-    logging.debug("Set night mode to zone {}: {}".format(str(zoneId), str(returnValue)))
+    # logging.debug("Set night mode to zone {}: {}".format(str(zoneId), str(returnValue)))
     return returnValue
 
   def setWhiteMode(self, zoneId):
@@ -463,7 +461,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__WHITE_MODE_CMD, zoneId)
-    logging.debug("Set white mode to zone {}: {}".format(str(zoneId), str(returnValue)))
+    # logging.debug("Set white mode to zone {}: {}".format(str(zoneId), str(returnValue)))
     return returnValue
 
   def setWhiteModeBridgeLamp(self):
@@ -472,7 +470,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__WIFI_BRIDGE_LAMP_WHITE_MODE_CMD, 0x01)
-    logging.debug("Set white mode to wifi bridge: {}".format(str(returnValue)))
+    # logging.debug("Set white mode to wifi bridge: {}".format(str(returnValue)))
     return returnValue
 
   def setDiscoMode(self, discoMode, zoneId):
@@ -485,7 +483,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__getSetDiscoModeCmd(discoMode), zoneId)
-    logging.debug("Set disco mode {} to zone {}: {}".format(str(discoMode), str(zoneId), str(returnValue)))
+    # logging.debug("Set disco mode {} to zone {}: {}".format(str(discoMode), str(zoneId), str(returnValue)))
     return returnValue
 
   def setDiscoModeBridgeLamp(self, discoMode):
@@ -497,7 +495,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__getSetDiscoModeForBridgeLampCmd(discoMode), 0x01)
-    logging.debug("Set disco mode {} to wifi bridge: {}".format(str(discoMode), str(returnValue)))
+    # logging.debug("Set disco mode {} to wifi bridge: {}".format(str(discoMode), str(returnValue)))
     return returnValue
 
   def speedUpDiscoMode(self, zoneId):
@@ -509,7 +507,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__DISCO_MODE_SPEED_UP_CMD, zoneId)
-    logging.debug("Speed up disco mode to zone {}: {}".format(str(zoneId), str(returnValue)))
+    #logging.debug("Speed up disco mode to zone {}: {}".format(str(zoneId), str(returnValue)))
     return returnValue
 
   def speedUpDiscoModeBridgeLamp(self):
@@ -518,7 +516,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__WIFI_BRIDGE_LAMP_DISCO_MODE_SPEED_UP_CMD, 0x01)
-    logging.debug("Speed up disco mode to wifi bridge: {}".format(str(returnValue)))
+    #logging.debug("Speed up disco mode to wifi bridge: {}".format(str(returnValue)))
     return returnValue
 
   def slowDownDiscoMode(self, zoneId):
@@ -530,7 +528,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__DISCO_MODE_SLOW_DOWN_CMD, zoneId)
-    logging.debug("Slow down disco mode to zone {}: {}".format(str(zoneId), str(returnValue)))
+    #logging.debug("Slow down disco mode to zone {}: {}".format(str(zoneId), str(returnValue)))
     return returnValue
 
   def slowDownDiscoModeBridgeLamp(self):
@@ -542,7 +540,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__WIFI_BRIDGE_LAMP_DISCO_MODE_SLOW_DOWN_CMD, 0x01)
-    logging.debug("Slow down disco mode to wifi bridge: {}".format(str(returnValue)))
+    #logging.debug("Slow down disco mode to wifi bridge: {}".format(str(returnValue)))
     return returnValue
 
   def link(self, zoneId):
@@ -554,7 +552,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__LINK_CMD, zoneId)
-    logging.debug("Link zone {}: {}".format(str(zoneId), str(returnValue)))
+    #logging.debug("Link zone {}: {}".format(str(zoneId), str(returnValue)))
     return returnValue
 
   def unlink(self, zoneId):
@@ -566,7 +564,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__UNLINK_CMD, zoneId)
-    logging.debug("Unlink zone {}: {}".format(str(zoneId), str(returnValue)))
+    #logging.debug("Unlink zone {}: {}".format(str(zoneId), str(returnValue)))
     return returnValue
 
   def setColor(self, color, zoneId):
@@ -581,7 +579,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__getSetColorCmd(color), zoneId)
-    logging.debug("Set color {} to zone {}: {}".format(str(color), str(zoneId), str(returnValue)))
+    #logging.debug("Set color {} to zone {}: {}".format(str(color), str(zoneId), str(returnValue)))
     return returnValue
 
   def setColorBridgeLamp(self, color):
@@ -595,7 +593,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__getSetBridgeLampColorCmd(color), 0x01)
-    logging.debug("Set color {} to wifi bridge: {}".format(str(color), str(returnValue)))
+    #logging.debug("Set color {} to wifi bridge: {}".format(str(color), str(returnValue)))
     return returnValue
 
   def setBrightness(self, brightness, zoneId):
@@ -608,7 +606,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__getSetBrightnessCmd(brightness), zoneId)
-    logging.debug("Set brightness {}% to zone {}: {}".format(str(brightness), str(zoneId), str(returnValue)))
+    #logging.debug("Set brightness {}% to zone {}: {}".format(str(brightness), str(zoneId), str(returnValue)))
     return returnValue
 
   def setBrightnessBridgeLamp(self, brightness):
@@ -620,7 +618,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__getSetBrightnessForBridgeLampCmd(brightness), 0x01)
-    logging.debug("Set brightness {}% to the wifi bridge: {}".format(str(brightness), str(returnValue)))
+    #logging.debug("Set brightness {}% to the wifi bridge: {}".format(str(brightness), str(returnValue)))
     return returnValue
 
   def setSaturation(self, saturation, zoneId):
@@ -633,7 +631,7 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__getSetSaturationCmd(saturation), zoneId)
-    logging.debug("Set saturation {}% to zone {}: {}".format(str(saturation), str(zoneId), str(returnValue)))
+    #logging.debug("Set saturation {}% to zone {}: {}".format(str(saturation), str(zoneId), str(returnValue)))
     return returnValue
 
   def setTemperature(self, temperature, zoneId):
@@ -646,8 +644,8 @@ class MilightWifiBridge:
     return: (bool) Request received by the wifi bridge
     """
     returnValue = self.__sendRequest(MilightWifiBridge.__getSetTemperatureCmd(temperature), zoneId)
-    logging.debug("Set temperature {}% ({} kelvin) to zone {}: {}"
-                  .format(str(temperature), str(int(2700 + 38*temperature)), str(zoneId), str(returnValue)))
+    #logging.debug("Set temperature {}% ({} kelvin) to zone {}: {}"
+    #              .format(str(temperature), str(int(2700 + 38*temperature)), str(zoneId), str(returnValue)))
     return returnValue
 
   def getMacAddress(self):
@@ -656,359 +654,5 @@ class MilightWifiBridge:
     return: (string) MAC address of the wifi bridge (empty if an error occured)
     """
     returnValue = self.__startSession().mac
-    logging.debug("Get MAC address: {}".format(str(returnValue)))
+    #logging.debug("Get MAC address: {}".format(str(returnValue)))
     return returnValue
-
-
-################################# HELP FUNCTION ################################
-def __help(func="", filename=__file__):
-  """Show help on how to use command line milight wifi bridge functions
-  Keyword arguments:
-    func -- (string, optional) Command line function requiring help, none will show all function
-    filename -- (string, optional) File name of the python script implementing the commands
-  """
-  func = func.lower()
-
-  # Help
-  if func in ("h", "help"):
-    print("Give information to use all or specific milight wifi bridge commands\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" -h [command (default: none)]\r\n"
-          +filename+" --help [command (default: none)]\r\n"
-          +"\r\n"
-          +"Example:\r\n"
-          +filename+" -h \r\n"
-          +filename+" -h turnOn \r\n"
-          +filename+" --help \r\n"
-          +filename+" --help link")
-    return
-  elif func == "":
-    print("HELP (-h, --help): Give information to use all or specific milight wifi bridge commands")
-
-  # Ip
-  if func in ("i", "ip"):
-    print("Specify milight wifi bridge IP (mandatory to use any command)\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" -i [ip]\r\n"
-          +filename+" --ip [ip]\r\n"
-          +"\r\n"
-          +"Example:\r\n"
-          +filename+" -i 192.168.1.23\r\n"
-          +filename+" --ip 192.168.1.23\r\n")
-    return
-  elif func == "":
-    print("IP (-i, --ip): Specify milight wifi bridge IP (mandatory to use any command)")
-
-  # Port
-  if func in ("p", "port"):
-    print("Specify milight wifi bridge port\r\n"
-          +"\r\n"
-          +"Default value (if not called): 5987\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" -port [port]\r\n"
-          +filename+" --port [port]\r\n"
-          +"\r\n"
-          +"Example:\r\n"
-          +filename+" -p 1234\r\n"
-          +filename+" --port 1234\r\n")
-    return
-  elif func == "":
-    print("PORT (-p, --port): Specify milight wifi bridge port (default value: 5987)")
-
-  # Timeout
-  if func in ("t", "timeout"):
-    print("Specify timeout for communication with the wifi bridge (in sec)\r\n"
-          +"\r\n"
-          +"Default value (if not called): 5.0\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" -t [timeout]\r\n"
-          +filename+" --timeout [timeout]\r\n"
-          +"\r\n"
-          +"Example:\r\n"
-          +filename+" -t 1\r\n"
-          +filename+" --timeout 1\r\n")
-    return
-  elif func == "":
-    print("TIMEOUT (-t, --timeout): Specify timeout for communication with the wifi bridge in sec (default value: 5.0sec)")
-
-  # Zone
-  if func in ("z", "zone"):
-    print("Specify milight light zone to control\r\n"
-          +"\r\n"
-          +"Default value (if not called): 0\r\n"
-          +"\r\n"
-          +"Possible values: 0 for all zone or zone 1 to 4\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" -z [zone]\r\n"
-          +filename+" --zone [zone]\r\n"
-          +"\r\n"
-          +"Example:\r\n"
-          +filename+" -z 1\r\n"
-          +filename+" --zone 1\r\n")
-    return
-  elif func == "":
-    print("ZONE (-z, --zone): Specify milight light zone to control (default value: All zone)")
-
-  # Get MAC address
-  if func in ("m", "getmacaddress"):
-    print("Get the milight wifi bridge mac address\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 -m\r\n"
-          +filename+" --ip 192.168.1.23 --getMacAddress\r\n")
-    return
-  elif func == "":
-    print("GET MAC ADDRESS (-m, --getMacAddress): Get the milight wifi bridge mac address")
-
-  # Link
-  if func in ("l", "link"):
-    print("Link lights to a specific zone\r\n"
-          +"\r\n"
-          +"Note: In order to make this work, the light must be switch on manually max 3sec before this command\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 -l\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 --link\r\n")
-    return
-  elif func == "":
-    print("LINK (-l, --link): Link lights to a specific zone")
-
-  # Unlink
-  if func in ("u", "unlink"):
-    print("Unlink lights\r\n"
-          +"\r\n"
-          +"Note: In order to make this work, the light must be switch on manually max 3sec before this command\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 -u\r\n"
-          +filename+" --ip 192.168.1.23 --unlink\r\n")
-    return
-  elif func == "":
-    print("UNLINK (-u, --unlink): Unlink lights")
-
-  # Turn lights ON
-  if func in ("o", "turnon"):
-    print("Turn lights on\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 -o\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 --turnOn\r\n")
-    return
-  elif func == "":
-    print("TURN ON (-o, --turnOn): Turn lights on")
-
-  # Turn lights OFF
-  if func in ("f", "turnoff"):
-    print("Turn lights off\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 -f\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 --turnOff\r\n")
-    return
-  elif func == "":
-    print("TURN OFF (-o, --turnOff): Turn lights off")
-
-  # Turn wifi bridge lamp ON
-  if func in ("x", "turnonwifibridgelamp"):
-    print("Turn wifi bridge lamp on\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 -x\r\n"
-          +filename+" --ip 192.168.1.23 --turnOnWifiBridgeLamp\r\n")
-    return
-  elif func == "":
-    print("TURN WIFI BRIDGE LAMP ON (-x, --turnOnWifiBridgeLamp): Turn wifi bridge lamp on")
-
-  # Turn wifi bridge lamp OFF
-  if func in ("y", "turnoffwifibridgelamp"):
-    print("Turn wifi bridge lamp off\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 -y\r\n"
-          +filename+" --ip 192.168.1.23 --turnOffWifiBridgeLamp\r\n")
-    return
-  elif func == "":
-    print("TURN WIFI BRIDGE LAMP OFF (-y, --turnOffWifiBridgeLamp): Turn wifi bridge lamp off")
-
-  # Set night mode
-  if func in ("n", "setnightmode"):
-    print("Set night mode\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 -n\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 --setNightMode\r\n")
-    return
-  elif func == "":
-    print("SET NIGHT MODE (-n, --setNightMode): Set night mode")
-
-  # Set white mode
-  if func in ("w", "setwhitemode"):
-    print("Set white mode\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 -w\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 --setWhiteMode\r\n")
-    return
-  elif func == "":
-    print("SET WHITE MODE (-w, --setWhiteMode): Set white mode")
-
-  # Set white mode for bridge lamp
-  if func in ("j", "setwhitemodebridgelamp"):
-    print("Set white mode\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 -j\r\n"
-          +filename+" --ip 192.168.1.23 --setWhiteModeBridgeLamp\r\n")
-    return
-  elif func == "":
-    print("SET WHITE MODE ON BRIDGE LAMP (-j, --setWhiteModeBridgeLamp): Set white mode on bridge lamp")
-
-  # Speed up disco mode for bridge lamp
-  if func in ("k", "speedupdiscomodebridgelamp"):
-    print("Speed up disco mode for bridge lamp\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 -k\r\n"
-          +filename+" --ip 192.168.1.23 --speedUpDiscoModeBridgeLamp\r\n")
-    return
-  elif func == "":
-    print("SPEED UP DISCO MODE FOR BRIDGE LAMP (-k, --speedUpDiscoModeBridgeLamp): Speed up disco mode for bridge lamp")
-
-  # Slow down disco mode for bridge lamp
-  if func in ("q", "slowdowndiscomodebridgelamp"):
-    print("Slow down disco mode for bridge lamp\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 -q\r\n"
-          +filename+" --ip 192.168.1.23 --slowDownDiscoModeBridgeLamp\r\n")
-    return
-  elif func == "":
-    print("SLOW DOWN DISCO MODE FOR BRIDGE LAMP (-q, --slowDownDiscoModeBridgeLamp): Slow down disco mode for bridge lamp")
-
-  # Speed up disco mode
-  if func in ("a", "speedupdiscomode"):
-    print("Speed up disco mode\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 -a\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 --speedUpDiscoMode\r\n")
-    return
-  elif func == "":
-    print("SPEED UP DISCO MODE (-a, --speedUpDiscoMode): Speed up disco mode")
-
-  # Slow down disco mode
-  if func in ("g", "slowdowndiscomode"):
-    print("Slow down disco mode\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 -g\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 --slowDownDiscoMode\r\n")
-    return
-  elif func == "":
-    print("SLOW DOWN DISCO MODE (-g, --slowDownDiscoMode): Slow down disco mode")
-
-  # Set specific color
-  if func in ("c", "setcolor"):
-    print("Set specific color (between 0 and 255)\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 -c 255\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 --setColor 255\r\n")
-    return
-  elif func == "":
-    print("SET COLOR (-c, --setColor): Set specific color (between 0 and 255)")
-
-  # Set brightness
-  if func in ("b", "setbrightness"):
-    print("Set brightness (in %)\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 -b 50\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 --setBrightness 50\r\n")
-    return
-  elif func == "":
-    print("SET BRIGHTNESS (-b, --setBrightness): Set brightness (in %)")
-
-  # Set specific color for bridge lamp
-  if func in ("r", "setcolorbridgelamp"):
-    print("Set specific color for the bridge lamp (between 0 and 255)\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 -r 255\r\n"
-          +filename+" --ip 192.168.1.23 --setColorBridgeLamp 255\r\n")
-    return
-  elif func == "":
-    print("SET COLOR FOR THE BRIDGE LAMP (-r, --setColorBridgeLamp): Set specific color for the bridge lamp (between 0 and 255)")
-
-  # Set brightness for bridge lamp
-  if func in ("v", "setbrightnessbridgelamp"):
-    print("Set brightness for the bridge lamp (in %)\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 -v 50\r\n"
-          +filename+" --ip 192.168.1.23 --setBrightnessBridgeLamp 50\r\n")
-    return
-  elif func == "":
-    print("SET BRIGHTNESS FOR THE BRIDGE LAMP (-v, --setBrightnessBridgeLamp): Set brightness for the bridge lamp(in %)")
-
-  # Set saturation
-  if func in ("s", "setsaturation"):
-    print("Set saturation (in %)\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 -s 50\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 --setSaturation 50\r\n")
-    return
-  elif func == "":
-    print("SET SATURATION (-s, --setSaturation): Set saturation (in %)")
-
-  # Set temperature
-  if func in ("s", "settemperature"):
-    print("Set temperature (in %)\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 -e 50\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 --setTemperature 50\r\n")
-    return
-  elif func == "":
-    print("SET TEMPERATURE (-e, --setTemperature): Set temperature (in %)")
-
-  # Set disco mode
-  if func in ("d", "setdiscomode"):
-    print("Set disco mode (between 1 and 9)\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 -d 5\r\n"
-          +filename+" --ip 192.168.1.23 --zone 1 --setDiscoMode 5\r\n")
-    return
-  elif func == "":
-    print("SET DISCO MODE (-d, --setDiscoMode): Set disco mode (between 1 and 9)")
-
-  # Set disco mode for bridge lamp
-  if func in ("d", "setdiscomodebridgelamp"):
-    print("Set disco mode for bridge lamp (between 1 and 9)\r\n"
-          +"\r\n"
-          +"Usage:\r\n"
-          +filename+" --ip 192.168.1.23 -1 5\r\n"
-          +filename+" --ip 192.168.1.23 --setDiscoModeBridgeLamp 5\r\n")
-    return
-  elif func == "":
-    print("SET DISCO MODE FOR BRIDGE LAMP (-1, --setDiscoModeBridgeLamp): Set disco mode for bridge lamp (between 1 and 9)")
-
-
-  # Add use case examples:
-  if func == "":
-    print("\r\n"
-          +"Some examples (if ip '192.168.1.23', port is 5987):\r\n"
-          +" - Get the mac address: "+filename+" --ip 192.168.1.23 --port 5987 --getMacAddress\r\n"
-          +" - Set disco mode 5 in light zone 1: "+filename+" --ip 192.168.1.23 --port 5987 --zone 1 --setDiscoMode 5\r\n"
-          +" - Light on zone 1: "+filename+" --ip 192.168.1.23 --port 5987 --zone 1 --lightOn\r\n"
-          +" - Light off zone 1: "+filename+" --ip 192.168.1.23 --port 5987 --zone 1 --lightOff\r\n"
-          +" - Light on and set with light in zone 1: "+filename+" --ip 192.168.1.23 --port 5987 --zone 1 --lightOn --setWhiteMode\r\n"
-          +" - Light on all zone: "+filename+" --ip 192.168.1.23 --port 5987 --zone 0 --lightOn\r\n"
-          +" - Light off all zone: "+filename+" --ip 192.168.1.23 --port 5987 --zone 0 --lightOff")
