@@ -37,10 +37,10 @@ import socket
 import time
 import collections
 import sys, getopt
-import logging
 import binascii
 
 class MilightWifiBridge:
+  import logging
   """Milight 3.0 Wifi Bridge class
 
   Calling setup() function is necessary in order to make this class work properly.
