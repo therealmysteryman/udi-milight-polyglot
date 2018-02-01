@@ -333,8 +333,10 @@ class MilightWifiBridge:
        # logging.debug("Start session (mac address: {}, session ID 1: {}, session ID 2: {})"
        #               .format(str(response.mac), str(response.sessionId1), str(response.sessionId2)))
       else:
+        pass
         # logging.warning("Invalid start session response size")
     except socket.timeout:
+      pass
       # logging.warning("Timed out for start session response")
 
     return response
