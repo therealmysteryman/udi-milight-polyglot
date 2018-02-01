@@ -260,6 +260,7 @@ class MilightWifiBridge:
 
   ################################### SETUP ####################################
   def close(self):
+    import logging
     """Close connection with Milight wifi bridge"""
     self.__initialized = False
     self.__sequence_number = 0
@@ -273,6 +274,7 @@ class MilightWifiBridge:
       pass
 
   def setup(self, ip, port=5987, timeout_sec=5.0):
+    import logging
     """Initialize the class (can be launched multiple time if setup changed or module crashed)
 
     Keyword arguments:
@@ -303,6 +305,7 @@ class MilightWifiBridge:
 
   ######################### INTERNAL UTILITY FUNCTIONS #########################
   def __startSession(self):
+    import logging
     """Send start session request and return start session information
 
     return: (MilightWifiBridge.__START_SESSION_RESPONSE) Start session information containing response received,
