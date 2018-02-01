@@ -107,16 +107,12 @@ class MiLightLight(polyinterface.Node):
         self.reportDrivers()
         
     def setOn(self, command):
-        self.__MilightConnect()
-        self.myMilight.turnOn(zoneId=self.grpNum)
-        self.__MilightDisconnect()
-        self.setDriver('ST', 100)
+        self.myMilight.turnOn(self.grpNum)
+        self.setDriver('ST', 100,True)
 
     def setOff(self, command):
-        self.__MilightConnect()
-        self.myMilight.turnOff(zoneId=self.grpNum)
-        self.__MilightDisconnect()
-        self.setDriver('ST', 0)
+        self.myMilight.turnOff(self.grpNum)
+        self.setDriver('ST', 0,True)
         
     def setColor(self, command):
         intColor = int(command.get('value'))
