@@ -40,7 +40,7 @@ class Controller(polyinterface.Controller):
             else:
                 self.milight_host = 5987
 
-            if self.host == "" :
+            if self.milight_host == "" :
                 LOGGER.error('MiLight requires \'host\' parameters to be specified in custom configuration.')
                 return False
             else:
