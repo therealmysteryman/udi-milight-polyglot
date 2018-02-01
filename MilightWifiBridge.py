@@ -365,27 +365,11 @@ class MilightWifiBridge:
           #              .format(str(binascii.hexlify(command)), str(startSessionResponse.sessionId1),
           #                      str(startSessionResponse.sessionId2), str(self.__sequence_number)))
           self.__sock.sendto(bytesToSend, (self.__ip, self.__port))
-          try:
-            # Receive response frame
-            data, addr = self.__sock.recvfrom(64)
-            if len(data) == 8:
-              if data[6] == self.__sequence_number:
-                returnValue = True
-                # logging.debug("Received valid response for previously sent request")
-              else:
-                # logging.warning("Invalid sequence number ack {} instead of {}".format(str(data[6]),
-                #                                                                      self.__sequence_number))
-            else:
-              # logging.warning("Invalid response size {} instead of 8".format(str(len(data))))
-          except socket.timeout:
-            # logging.warning("Timed out for response")
-        else:
-          # logging.warning("Start session failed")
-      else:
-        # logging.error("Invalid zone {} (must be between 0 and 4)".format(str(zoneId)))
-    else:
-      pass
-      # logging.error("Invalid command size {} instead of 9".format(str(len(bytearray(command)))))
+          # Receive response frame
+          data, addr = self.__sock.recvfrom(64)
+          if len(data) == 8:
+            if data[6] == self.__sequence_number:
+              returnValue = True
 
     return returnValue
 
