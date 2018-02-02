@@ -1,1 +1,6 @@
-language: python
+language:
+- python
+python:
+- '3.6'
+script:
+- "./milight_poly.py"
