@@ -46,7 +46,7 @@ class Controller(polyinterface.Controller):
             else:
                 self.setDriver('ST', 1)
                 self.discover()
-                self.reportDrivers()
+                self.query()
                 
         except Exception as ex:
             LOGGER.error('Error starting MiLight NodeServer: %s', str(ex))
@@ -58,7 +58,8 @@ class Controller(polyinterface.Controller):
         pass
 
     def query(self):
-        self.reportDrivers()
+        for node in self.nodes:
+            self.nodes[node].reportDrivers()
         
     def discover(self, *args, **kwargs):
         time.sleep(1)
@@ -109,58 +110,58 @@ class MiLightLight(polyinterface.Node):
         
     def setOn(self, command):
         if ( self.myMilight.turnOn(self.grpNum) == False ):
-            LOGGER.warn('Unable to Turn ON ' + self.name )
+            LOGGER.warning('Unable to Turn ON ' + self.name )
         else:
             self.setDriver('ST', 100,True)
 
     def setOff(self, command):
         if (self.myMilight.turnOff(self.grpNum) == False):
-            LOGGER.warn('Unable to Turn OFF ' + self.name )
+            LOGGER.warning('Unable to Turn OFF ' + self.name )
         else:
             self.setDriver('ST', 0,True)
         
     def setColor(self, command):
         intColor = int(command.get('value'))
         if (self.myMilight.setColor(intColor,self.grpNum) == False):
-            LOGGER.warn('Unable to SetColor ' + self.name )
+            LOGGER.warning('Unable to SetColor ' + self.name )
         else:
             self.setDriver('GV1', intColor,True)
         
     def setSaturation(self, command):
         intSat = int(command.get('value'))
         if (self.myMilight.setSaturation(intSat,self.grpNum) == False):
-            LOGGER.warn('Unable to setSaturation ' + self.name )
+            LOGGER.warning('Unable to setSaturation ' + self.name )
         else:
             self.setDriver('GV2', intSat,True)
         
     def setBrightness(self, command):
         intBri = int(command.get('value'))
         if (self.myMilight.setBrightness(intBri,self.grpNum)  == False):
-            LOGGER.warn('Unable to setBrightness ' + self.name )
+            LOGGER.warning('Unable to setBrightness ' + self.name )
         else:
             self.setDriver('GV3', intSat,True)
 
     def setTempColor(self, command):
         intTemp = int(command.get('value'))
         if (self.myMilight.setTemperature(intTemp,self.grpNum) == False):
-            LOGGER.warn('Unable to setTemperature ' + self.name )
+            LOGGER.warning('Unable to setTemperature ' + self.name )
         else:
             self.setDriver('GV5', intTemp,True)
         
     def setEffect(self, command):
         intEffect = int(command.get('value'))
         if (self.myMilight.setDiscoMode(intEffect,self.grpNum) == False):
-            LOGGER.warn('Unable to setDiscoMode ' + self.name )
+            LOGGER.warning('Unable to setDiscoMode ' + self.name )
         else:
             self.setDriver('GV4', intEffect,True)
         
     def setWhiteMode(self, command):
         if (self.myMilight.setWhiteMode(self.grpNum) == False):
-            LOGGER.warn('Unable to setWhiteMode ' + self.name )
+            LOGGER.warning('Unable to setWhiteMode ' + self.name )
             
     def setNightMode(self, command):
         if (self.myMilight.setNightMode(self.grpNum) == False):
-            OGGER.warn('Unable to setNightMode ' + self.name )
+            OGGER.warning('Unable to setNightMode ' + self.name )
         
     def query(self):
         self.reportDrivers()
@@ -207,40 +208,40 @@ class MiLightBridge(polyinterface.Node):
     def setOn(self, command):
         
         if ( self.myMilight.turnOnWifiBridgeLamp() == False ):
-            LOGGER.warn('Unable to Turn ON Bridge Light')
+            LOGGER.warning('Unable to Turn ON Bridge Light')
         else:
             self.setDriver('ST', 100,True)
 
     def setOff(self, command):
         if(self.myMilight.turnOffWifiBridgeLamp() == False):
-            LOGGER.warn('Unable to Turn OFF Bridge Light')
+            LOGGER.warning('Unable to Turn OFF Bridge Light')
         else:
             self.setDriver('ST', 0, True)
         
     def setColor(self, command):
         intColor = int(command.get('value'))
         if (self.myMilight.setColorBridgeLamp(intColor) == False):
-            LOGGER.warn('Unable to setColorBridgeLamp')
+            LOGGER.warning('Unable to setColorBridgeLamp')
         else:
             self.setDriver('GV1', intColor,True)
         
     def setBrightness(self, command):
         intBri = int(command.get('value'))
         if (self.myMilight.setBrightnessBridgeLamp(intBri) == False):
-            LOGGER.warn('Unable to setBrightnessBridgeLamp')
+            LOGGER.warning('Unable to setBrightnessBridgeLamp')
         else:
             self.setDriver('GV3', intBri,True)
         
     def setEffect(self, command):
         intEffect = int(command.get('value'))
         if(self.myMilight.setDiscoModeBridgeLamp(intEffect) == False):
-            LOGGER.warn('Unable to setDiscoModeBridgeLamp')
+            LOGGER.warning('Unable to setDiscoModeBridgeLamp')
         else:
             self.setDriver('GV4', intEffect,True)
         
     def setWhiteMode(self, command):
         if (self.myMilight.setWhiteModeBridgeLamp() == False):
-            LOGGER.warn('Unable to setWhiteModeBridgeLamp')
+            LOGGER.warning('Unable to setWhiteModeBridgeLamp')
   
     def query(self):
         self.reportDrivers()
