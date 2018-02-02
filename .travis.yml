@@ -3,4 +3,4 @@ language:
 python:
 - '3.6'
 script:
-- "./milight_poly.py"
+- "./ValidatePythonSyntax.sh"
