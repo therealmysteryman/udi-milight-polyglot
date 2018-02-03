@@ -139,7 +139,7 @@ class MiLightLight(polyinterface.Node):
         if (self.myMilight.setBrightness(intBri,self.grpNum)  == False):
             LOGGER.warning('Unable to setBrightness ' + self.name )
         else:
-            self.setDriver('GV3', intSat,True)
+            self.setDriver('GV3', intBri,True)
 
     def setTempColor(self, command):
         intTemp = int(command.get('value'))
