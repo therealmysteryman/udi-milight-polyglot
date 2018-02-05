@@ -161,7 +161,7 @@ class MiLightLight(polyinterface.Node):
             
     def setNightMode(self, command):
         if (self.myMilight.setNightMode(self.grpNum) == False):
-            OGGER.warning('Unable to setNightMode ' + self.name )
+            LOGGER.warning('Unable to setNightMode ' + self.name )
         
     def query(self):
         self.reportDrivers()
