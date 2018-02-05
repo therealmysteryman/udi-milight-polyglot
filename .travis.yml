@@ -8,6 +8,7 @@ before_install:
 script:
 - "./ValidatePythonSyntax.sh"
 - "./zipprofile"
+- "export TRAVIS_COMMIT_MESSAGE=test"
 deploy:
   provider: pages
   skip-cleanup: true
