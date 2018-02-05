@@ -2,11 +2,9 @@ language:
 - python
 python:
 - '3.6'
-ignore:
-  - *.zip
 before_install:
-  - chmod +x ValidatePythonSyntax.sh
-  - chmod +x zipprofile
+- chmod +x ValidatePythonSyntax.sh
+- chmod +x zipprofile
 script:
 - "./ValidatePythonSyntax.sh"
 - "./zipprofile"
@@ -16,5 +14,6 @@ deploy:
   github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
   keep-history: true
   target-branch: $TRAVIS_BRANCH
+  name : [skip ci]
   on:
     branch: $TRAVIS_BRANCH
