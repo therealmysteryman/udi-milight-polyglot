@@ -8,7 +8,6 @@ before_install:
 script:
 - "./ValidatePythonSyntax.sh"
 - "./zipprofile"
-- "export TRAVIS_TAG=skip ci"
 deploy:
   provider: pages
   skip-cleanup: true
@@ -17,3 +16,9 @@ deploy:
   target-branch: $TRAVIS_BRANCH
   on:
     branch: $TRAVIS_BRANCH
+activate :deploy do |deploy|
+  deploy.deploy_method = :git
+  deploy.remote = 'origin'
+  deploy.branch = 'gh-pages'
+  deploy.commit_message = 'Publish to GitHub pages via Travis CI'
+end
