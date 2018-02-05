@@ -2,6 +2,8 @@ language:
 - python
 python:
 - '3.6'
+ignore:
+  - *.zip
 before_install:
   - chmod +x ValidatePythonSyntax.sh
   - chmod +x zipprofile
