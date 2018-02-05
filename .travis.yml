@@ -8,7 +8,7 @@ before_install:
 script:
 - "./ValidatePythonSyntax.sh"
 - "./zipprofile"
-- "$TRAVIS_TAG=[skip ci]"
+- "export TRAVIS_TAG=\[skip ci\]"
 deploy:
   provider: pages
   skip-cleanup: true
