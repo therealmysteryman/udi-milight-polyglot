@@ -11,7 +11,7 @@
     "credits": [
         {
             "title": "udi-milight-poly: A Polyglot v2 interface to Milight Protocol V6",
-            "author": "Jean-Francois Tremblay (AutomationGeek)",
+            "author": "AutomationGeek",
             "version": "0.1.9",
             "date": "Feb 02, 2018",
             "source": "https://github.com/therealmysteryman/udi-milight-polyglot",
