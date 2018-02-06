@@ -1,3 +1,5 @@
+git checkout -b dev
+git status
 git add profile.zip
 git commit -m "generated profile zip [skip ci]"
 git status
