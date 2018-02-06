@@ -30,7 +30,12 @@
     
     <!-- Kelvin Editor -->
     <editor id="MCTEMP">
-        <range uom="51" min="0" max="100" prec="0" step="1" />
+        <range uom="100" min="0" max="4" prec="0" step="1" />
+    </editor>
+    
+    <!-- Color Picker Editor -->
+    <editor id="MCOLORPICK">
+        <range uom="100" min="0" max="7" prec="0" step="1" />
     </editor>
         
 </editors>
