@@ -18,6 +18,9 @@ VERSION = SERVERDATA['credits'][0]['version']
 
 class Controller(polyinterface.Controller):
 
+    __COLOR_VALUE = [0x85,0xBA,0x7A,0xD9,0x54,0x1E,0xFF,0x3B]
+    __WHITE_TEMP = [0,8,35,61,100]
+    
     def __init__(self, polyglot):
         super(Controller, self).__init__(polyglot)
         self.name = 'MiLight'
