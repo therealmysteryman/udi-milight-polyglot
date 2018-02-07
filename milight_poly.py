@@ -123,13 +123,20 @@ class MiLightLight(polyinterface.Node):
         else:
             self.setDriver('ST', 0,True)
         
-    def setColor(self, command):
+    def setColorID(self, command):
         intColor = int(command.get('value'))
         if (self.myMilight.setColor(intColor,self.grpNum) == False):
             LOGGER.warning('Unable to SetColor ' + self.name )
         else:
             self.setDriver('GV1', intColor,True)
-        
+    
+    def setColor(self, command):
+        intColor = self.parent.__COLOR_VALUE[int(command.get('value'))-1]
+        if (self.myMilight.setColor(intColor,self.grpNum) == False):
+            LOGGER.warning('Unable to SetColor ' + self.name )
+        else:
+            self.setDriver('GV1', intColor,True)
+            
     def setSaturation(self, command):
         intSat = int(command.get('value'))
         if (self.myMilight.setSaturation(intSat,self.grpNum) == False):
@@ -145,7 +152,7 @@ class MiLightLight(polyinterface.Node):
             self.setDriver('GV3', intBri,True)
 
     def setTempColor(self, command):
-        intTemp = int(command.get('value'))
+        intTemp = self.parent.__WHITE_TEMP[int(command.get('value'))-1]
         if (self.myMilight.setTemperature(intTemp,self.grpNum) == False):
             LOGGER.warning('Unable to setTemperature ' + self.name )
         else:
@@ -184,6 +191,7 @@ class MiLightLight(polyinterface.Node):
     commands = {
                     'DON': setOn,
                     'DOF': setOff,
+                    "SET_COLOR_ID": setColorID,
                     "SET_COLOR": setColor,
                     "SET_SAT": setSaturation,
                     "SET_BRI": setBrightness,
@@ -225,13 +233,20 @@ class MiLightBridge(polyinterface.Node):
         else:
             self.setDriver('ST', 0, True)
         
-    def setColor(self, command):
+    def setColorID(self, command):
         intColor = int(command.get('value'))
         if (self.myMilight.setColorBridgeLamp(intColor) == False):
             LOGGER.warning('Unable to setColorBridgeLamp')
         else:
             self.setDriver('GV1', intColor,True)
-        
+    
+    def setColor(self, command):
+        intColor = self.parent.__COLOR_VALUE[int(command.get('value'))-1]
+        if (self.myMilight.setColor(intColor,self.grpNum) == False):
+            LOGGER.warning('Unable to SetColor ' + self.name )
+        else:
+            self.setDriver('GV1', intColor,True)
+            
     def setBrightness(self, command):
         intBri = int(command.get('value'))
         if (self.myMilight.setBrightnessBridgeLamp(intBri) == False):
@@ -267,6 +282,7 @@ class MiLightBridge(polyinterface.Node):
                     'DON': setOn,
                     'DOF': setOff,
                     "SET_COLOR": setColor,
+                    "SET_COLOR_ID": setColorID,
                     "SET_BRI": setBrightness,
                     "SET_EFFECT": setEffect,
                     "WHITE_MODE": setWhiteMode
