@@ -135,7 +135,7 @@ class MiLightLight(polyinterface.Node):
         if (self.myMilight.setColor(intColor,self.grpNum) == False):
             LOGGER.warning('Unable to SetColor ' + self.name )
         else:
-            self.setDriver('GV1', intColor,True)
+            self.setDriver('GV6', intColor,True)
             
     def setSaturation(self, command):
         intSat = int(command.get('value'))
@@ -185,8 +185,10 @@ class MiLightLight(polyinterface.Node):
                {'driver': 'GV1', 'value': 0, 'uom': 100},
                {'driver': 'GV2', 'value': 0, 'uom': 51},
                {'driver': 'GV3', 'value': 0, 'uom': 51},
-               {'driver': 'GV5', 'value': 0, 'uom': 51},
-               {'driver': 'GV4', 'value': 1, 'uom': 100}]
+               {'driver': 'GV5', 'value': 1, 'uom': 25},
+               {'driver': 'GV4', 'value': 1, 'uom': 100},
+               {'driver': 'GV6', 'value': 1, 'uom': 25}]
+    
     id = 'MILIGHT_LIGHT'
     commands = {
                     'DON': setOn,
@@ -276,7 +278,8 @@ class MiLightBridge(polyinterface.Node):
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 78},
                {'driver': 'GV1', 'value': 0, 'uom': 100},
                {'driver': 'GV3', 'value': 0, 'uom': 51},
-               {'driver': 'GV4', 'value': 1, 'uom': 100}]
+               {'driver': 'GV4', 'value': 1, 'uom': 100},
+               {'driver': 'GV6', 'value': 1, 'uom': 25}]
     id = 'MILIGHT_BRIDGE'
     commands = {
                     'DON': setOn,
