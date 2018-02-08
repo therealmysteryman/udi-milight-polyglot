@@ -8,11 +8,12 @@ ND-MILIGHT_BRIDGE-ICON = LampAndSwitch
 ND-controller-NAME = Milight Hub
 ND-controller-ICON = GenericCtl
 
-ST-GV1-NAME = Colour
+ST-GV1-NAME = Color ID
 ST-GV2-NAME = Saturation
 ST-GV3-NAME = Brightness
 ST-GV4-NAME = Effect
 ST-GV5-NAME = Status
+ST-GV6-NAME = Color
 ST-CLITEMP-NAME = Temperature
 
 CMD-DON-NAME = On
@@ -33,7 +34,7 @@ COLOR_SEL-4 = Lavender
 COLOR_SEL-5 = Lime
 COLOR_SEL-6 = Orange
 COLOR_SEL-7 = Red
-COLOR_SEL-7 = Yellow
+COLOR_SEL-8 = Yellow
 
 TEMP_SEL-1 = WARM 2700K
 TEMP_SEL-2 = WARM WHITE 3000K
