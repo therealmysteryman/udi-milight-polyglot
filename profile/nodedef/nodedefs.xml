@@ -54,7 +54,7 @@
         <sts>
             <st id="ST" editor="MONOFF" />
             <st id="GV1" editor="MCOLOR" />  <!-- Color -->
-            <st id="GV5" editor="MCOLORPICK" />
+            <st id="GV6" editor="MCOLORPICK" />
             <st id="GV3" editor="MCLBRI" /> <!-- Brightness -->
             <st id="GV4" editor="MEFFECT" />
         </sts>
