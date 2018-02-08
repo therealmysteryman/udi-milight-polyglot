@@ -135,7 +135,7 @@ class MiLightLight(polyinterface.Node):
         if (self.myMilight.setColor(intColor,self.grpNum) == False):
             LOGGER.warning('Unable to SetColor ' + self.name )
         else:
-            self.setDriver('GV6', intColor,True)
+            self.setDriver('GV1', intColor,True)
             
     def setSaturation(self, command):
         intSat = int(command.get('value'))
@@ -247,7 +247,7 @@ class MiLightBridge(polyinterface.Node):
         if (self.myMilight.setColor(intColor,self.grpNum) == False):
             LOGGER.warning('Unable to SetColor ' + self.name )
         else:
-            self.setDriver('GV6', intColor,True)
+            self.setDriver('GV1', intColor,True)
             
     def setBrightness(self, command):
         intBri = int(command.get('value'))
