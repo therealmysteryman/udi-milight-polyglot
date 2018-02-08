@@ -8,11 +8,12 @@ ND-MILIGHT_BRIDGE-ICON = LampAndSwitch
 ND-controller-NAME = Milight Hub
 ND-controller-ICON = GenericCtl
 
-ST-GV1-NAME = Colour
+ST-GV1-NAME = Color ID
 ST-GV2-NAME = Saturation
 ST-GV3-NAME = Brightness
 ST-GV4-NAME = Effect
-ST-GV5-NAME = Status
+ST-GV5-NAME = White Temperature
+ST-GV6-NAME = Color
 ST-CLITEMP-NAME = Temperature
 
 CMD-DON-NAME = On
@@ -22,6 +23,32 @@ CMD-SET_BRI-NAME = Set Brightness
 CMD-CLITEMP-NAME = Set Color Temperature
 CMD-SET_COLOR-NAME = Set Colour
 CMD-SET_COLOR_ID-NAME = Set Colour ID
+CMD-CLITEMP-NAME = Set White Temperature
 CMD-SET_EFFECT-NAME = Set Effect
 CMD-WHITE_MODE-NAME = White Mode
 CMD-NIGHT_MODE-NAME = Night Mode
+
+COLOR_SEL-1 = Aqua
+COLOR_SEL-2 = Blue
+COLOR_SEL-3 = Green
+COLOR_SEL-4 = Lavender
+COLOR_SEL-5 = Lime
+COLOR_SEL-6 = Orange
+COLOR_SEL-7 = Red
+COLOR_SEL-8 = Yellow
+
+TEMP_SEL-1 = WARM 2700K
+TEMP_SEL-2 = WARM WHITE 3000K
+TEMP_SEL-3 = COOL WHITE 4000K
+TEMP_SEL-4 = DAYLIGHT 5000K
+TEMP_SEL-5 = COOL DAYLIGHT 6500K
+
+COLORLOOP-1 = Fire
+COLORLOOP-2 = Rainbow Fade
+COLORLOOP-3 = White Fade
+COLORLOOP-4 = RGBW Fade
+COLORLOOP-5 = Rainbow Fast
+COLORLOOP-6 = Random
+COLORLOOP-7 = Red Flash
+COLORLOOP-8 = Green Flash
+COLORLOOP-9 = Blue Flash
