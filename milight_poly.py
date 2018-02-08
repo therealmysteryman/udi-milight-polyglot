@@ -18,10 +18,14 @@ VERSION = SERVERDATA['credits'][0]['version']
 
 class Controller(polyinterface.Controller):
 
+    COLOR_VALUE = [0x85,0xBA,0x7A,0xD9,0x54,0x1E,0xFF,0x3B]
+    WHITE_TEMP = [0,8,35,61,100]
+    
     def __init__(self, polyglot):
         super(Controller, self).__init__(polyglot)
         self.name = 'MiLight'
         self.initialized = False
+        self.queryON = False
         self.milight_host = ""
         self.milight_port = 5987
         self.tries = 0
@@ -55,11 +59,12 @@ class Controller(polyinterface.Controller):
         pass
 
     def longPoll(self):
-        pass
+        self.query()
 
     def query(self):
         for node in self.nodes:
-            self.nodes[node].reportDrivers()
+            if self.nodes[node].queryON == True :
+                self.nodes[node].query()
         
     def discover(self, *args, **kwargs):
         time.sleep(1)
@@ -81,13 +86,11 @@ class MiLightLight(polyinterface.Node):
     def __init__(self, controller, primary, address, name):
 
         super(MiLightLight, self).__init__(controller, primary, address, name)
-        self.milight_timeout = 5.0
+        self.queryON = True
+        self.milight_timeout = 30.0
         self.milight_host = self.parent.milight_host
         self.milight_port = self.parent.milight_port
-        
         self.myMilight = MilightWifiBridge()
-        if ( self.myMilight.setup(self.milight_host,self.milight_port,self.milight_timeout) == False ):
-            LOGGER.error('Unable to setup MiLight')
         
         # Set Zone
         if name == 'Zone1':
@@ -100,7 +103,7 @@ class MiLightLight(polyinterface.Node):
             self.grpNum = 4
             
     def start(self):
-        # Initial Value
+        self.__ConnectWifiBridge()
         self.setDriver('ST', 0, True)
         self.setDriver('GV1', 0, True)
         self.setDriver('GV2', 0, True)
@@ -120,13 +123,20 @@ class MiLightLight(polyinterface.Node):
         else:
             self.setDriver('ST', 0,True)
         
-    def setColor(self, command):
+    def setColorID(self, command):
         intColor = int(command.get('value'))
         if (self.myMilight.setColor(intColor,self.grpNum) == False):
             LOGGER.warning('Unable to SetColor ' + self.name )
         else:
             self.setDriver('GV1', intColor,True)
-        
+    
+    def setColor(self, command):
+        intColor = self.parent.COLOR_VALUE[int(command.get('value'))-1]
+        if (self.myMilight.setColor(intColor,self.grpNum) == False):
+            LOGGER.warning('Unable to SetColor ' + self.name )
+        else:
+            self.setDriver('GV1', intColor,True)
+            
     def setSaturation(self, command):
         intSat = int(command.get('value'))
         if (self.myMilight.setSaturation(intSat,self.grpNum) == False):
@@ -142,7 +152,7 @@ class MiLightLight(polyinterface.Node):
             self.setDriver('GV3', intBri,True)
 
     def setTempColor(self, command):
-        intTemp = int(command.get('value'))
+        intTemp = self.parent.WHITE_TEMP[int(command.get('value'))-1]
         if (self.myMilight.setTemperature(intTemp,self.grpNum) == False):
             LOGGER.warning('Unable to setTemperature ' + self.name )
         else:
@@ -162,20 +172,27 @@ class MiLightLight(polyinterface.Node):
     def setNightMode(self, command):
         if (self.myMilight.setNightMode(self.grpNum) == False):
             LOGGER.warning('Unable to setNightMode ' + self.name )
-        
+    
+    def __ConnectWifiBridge(self): 
+        if ( self.myMilight.setup(self.milight_host,self.milight_port,self.milight_timeout) == False ):
+            LOGGER.error('Unable to setup MiLight')
+    
     def query(self):
+        self.__ConnectWifiBridge()
         self.reportDrivers()
              
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 78},
                {'driver': 'GV1', 'value': 0, 'uom': 100},
                {'driver': 'GV2', 'value': 0, 'uom': 51},
                {'driver': 'GV3', 'value': 0, 'uom': 51},
-               {'driver': 'GV5', 'value': 0, 'uom': 51},
-               {'driver': 'GV4', 'value': 1, 'uom': 100}]
+               {'driver': 'GV5', 'value': 1, 'uom': 25},
+               {'driver': 'GV4', 'value': 1, 'uom': 25}]
+    
     id = 'MILIGHT_LIGHT'
     commands = {
                     'DON': setOn,
                     'DOF': setOff,
+                    "SET_COLOR_ID": setColorID,
                     "SET_COLOR": setColor,
                     "SET_SAT": setSaturation,
                     "SET_BRI": setBrightness,
@@ -190,15 +207,15 @@ class MiLightBridge(polyinterface.Node):
     def __init__(self, controller, primary, address, name):
 
         super(MiLightBridge, self).__init__(controller, primary, address, name)
-        self.milight_timeout = 5.0
+        self.queryON = True
+        self.milight_timeout = 30.0
         self.milight_host = self.parent.milight_host
         self.milight_port = self.parent.milight_port
-        
         self.myMilight = MilightWifiBridge()
-        if ( self.myMilight.setup(self.milight_host,self.milight_port,self.milight_timeout) == False ):
-            LOGGER.error('Unable to setup MiLight')
-             
+         
     def start(self):
+        self.__ConnectWifiBridge()
+        
         # Init Value
         self.setDriver('ST', 0, True)
         self.setDriver('GV1', 0, True)
@@ -206,7 +223,6 @@ class MiLightBridge(polyinterface.Node):
         self.setDriver('GV4', 1, True)
 
     def setOn(self, command):
-        
         if ( self.myMilight.turnOnWifiBridgeLamp() == False ):
             LOGGER.warning('Unable to Turn ON Bridge Light')
         else:
@@ -218,13 +234,20 @@ class MiLightBridge(polyinterface.Node):
         else:
             self.setDriver('ST', 0, True)
         
-    def setColor(self, command):
+    def setColorID(self, command):
         intColor = int(command.get('value'))
         if (self.myMilight.setColorBridgeLamp(intColor) == False):
             LOGGER.warning('Unable to setColorBridgeLamp')
         else:
             self.setDriver('GV1', intColor,True)
-        
+    
+    def setColor(self, command):
+        intColor = self.parent.COLOR_VALUE[int(command.get('value'))-1]
+        if (self.myMilight.setColorBridgeLamp(intColor) == False):
+            LOGGER.warning('Unable to SetColor ' + self.name )
+        else:
+            self.setDriver('GV1', intColor,True)
+            
     def setBrightness(self, command):
         intBri = int(command.get('value'))
         if (self.myMilight.setBrightnessBridgeLamp(intBri) == False):
@@ -243,18 +266,24 @@ class MiLightBridge(polyinterface.Node):
         if (self.myMilight.setWhiteModeBridgeLamp() == False):
             LOGGER.warning('Unable to setWhiteModeBridgeLamp')
   
+    def __ConnectWifiBridge(self): 
+        if ( self.myMilight.setup(self.milight_host,self.milight_port,self.milight_timeout) == False ):
+            LOGGER.error('Unable to setup MiLight')
+
     def query(self):
+        self.__ConnectWifiBridge()
         self.reportDrivers()
         
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 78},
                {'driver': 'GV1', 'value': 0, 'uom': 100},
                {'driver': 'GV3', 'value': 0, 'uom': 51},
-               {'driver': 'GV4', 'value': 1, 'uom': 100}]
+               {'driver': 'GV4', 'value': 1, 'uom': 25}]
     id = 'MILIGHT_BRIDGE'
     commands = {
                     'DON': setOn,
                     'DOF': setOff,
                     "SET_COLOR": setColor,
+                    "SET_COLOR_ID": setColorID,
                     "SET_BRI": setBrightness,
                     "SET_EFFECT": setEffect,
                     "WHITE_MODE": setWhiteMode
