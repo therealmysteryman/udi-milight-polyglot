@@ -243,7 +243,7 @@ class MiLightBridge(polyinterface.Node):
             self.setDriver('GV1', intColor,True)
     
     def setColor(self, command):
-        intColor = self.parent.__COLOR_VALUE[int(command.get('value'))-1]
+        intColor = self.parent.COLOR_VALUE[int(command.get('value'))-1]
         if (self.myMilight.setColor(intColor,self.grpNum) == False):
             LOGGER.warning('Unable to SetColor ' + self.name )
         else:
