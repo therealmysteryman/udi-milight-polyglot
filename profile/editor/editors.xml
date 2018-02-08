@@ -25,8 +25,8 @@
     
     <!-- Effect Selector -->
     <editor id="MEFFECT">
-        <range uom="100" min="1" max="9" step="1" prec="0" />
-    </editor>
+        <range uom="25" subset="1-9" nls="COLORLOOP" />
+    </editor>"
     
     <!-- Kelvin Editor -->
     <editor id="MCTEMP">
