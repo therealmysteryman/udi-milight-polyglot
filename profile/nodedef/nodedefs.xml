@@ -65,7 +65,7 @@
                 <cmd id="SET_COLOR">
                     <p id="" editor="MCOLORPICK" />
                 </cmd>
-                <cmd id="SET_COLOR">
+                <cmd id="SET_COLOR_ID">
                     <p id="" editor="MCOLOR" />
                 </cmd>
                 <cmd id="SET_BRI">
