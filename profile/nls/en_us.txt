@@ -12,7 +12,7 @@ ST-GV1-NAME = Color ID
 ST-GV2-NAME = Saturation
 ST-GV3-NAME = Brightness
 ST-GV4-NAME = Effect
-ST-GV5-NAME = Status
+ST-GV5-NAME = White Temperature
 ST-GV6-NAME = Color
 ST-CLITEMP-NAME = Temperature
 
