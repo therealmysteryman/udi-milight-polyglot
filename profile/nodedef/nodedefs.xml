@@ -19,6 +19,7 @@
             <st id="GV2" editor="MCLSAT" /> <!-- Saturation -->
             <st id="GV3" editor="MCLBRI" /> <!-- Brightness -->
             <st id="GV4" editor="MEFFECT" />
+            <st id="GV6" editor="MCOLORPICK" />
         </sts>
         <cmds>
             <sends />
@@ -55,6 +56,7 @@
             <st id="GV1" editor="MCOLOR" />  <!-- Color -->
             <st id="GV3" editor="MCLBRI" /> <!-- Brightness -->
             <st id="GV4" editor="MEFFECT" />
+            <st id="GV6" editor="MCOLORPICK" />
         </sts>
         <cmds>
             <sends />
