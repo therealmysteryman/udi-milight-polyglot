@@ -12,6 +12,7 @@ import json
 import sys
 from MilightWifiBridge import MilightWifiBridge
 
+
 LOGGER = polyinterface.LOGGER
 SERVERDATA = json.load(open('server.json'))
 VERSION = SERVERDATA['credits'][0]['version']
