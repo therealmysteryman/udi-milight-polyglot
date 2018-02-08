@@ -18,8 +18,8 @@ VERSION = SERVERDATA['credits'][0]['version']
 
 class Controller(polyinterface.Controller):
 
-    __COLOR_VALUE = [0x85,0xBA,0x7A,0xD9,0x54,0x1E,0xFF,0x3B]
-    __WHITE_TEMP = [0,8,35,61,100]
+    COLOR_VALUE = [0x85,0xBA,0x7A,0xD9,0x54,0x1E,0xFF,0x3B]
+    WHITE_TEMP = [0,8,35,61,100]
     
     def __init__(self, polyglot):
         super(Controller, self).__init__(polyglot)
@@ -131,7 +131,7 @@ class MiLightLight(polyinterface.Node):
             self.setDriver('GV1', intColor,True)
     
     def setColor(self, command):
-        intColor = self.parent.__COLOR_VALUE[int(command.get('value'))-1]
+        intColor = self.parent.COLOR_VALUE[int(command.get('value'))-1]
         if (self.myMilight.setColor(intColor,self.grpNum) == False):
             LOGGER.warning('Unable to SetColor ' + self.name )
         else:
@@ -152,7 +152,7 @@ class MiLightLight(polyinterface.Node):
             self.setDriver('GV3', intBri,True)
 
     def setTempColor(self, command):
-        intTemp = self.parent.__WHITE_TEMP[int(command.get('value'))-1]
+        intTemp = self.parent.WHITE_TEMP[int(command.get('value'))-1]
         if (self.myMilight.setTemperature(intTemp,self.grpNum) == False):
             LOGGER.warning('Unable to setTemperature ' + self.name )
         else:
