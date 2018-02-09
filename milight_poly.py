@@ -180,7 +180,6 @@ class MiLightLight(polyinterface.Node):
     
     def query(self):
         self.__ConnectWifiBridge()
-        self.reportDrivers()
              
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 78},
                {'driver': 'GV1', 'value': 0, 'uom': 100},
@@ -273,7 +272,6 @@ class MiLightBridge(polyinterface.Node):
 
     def query(self):
         self.__ConnectWifiBridge()
-        self.reportDrivers()
         
     drivers = [{'driver': 'ST', 'value': 0, 'uom': 78},
                {'driver': 'GV1', 'value': 0, 'uom': 100},
