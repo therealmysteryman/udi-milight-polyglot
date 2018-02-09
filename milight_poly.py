@@ -60,7 +60,7 @@ class Controller(polyinterface.Controller):
         pass
 
     def longPoll(self):
-        self.query()
+        pass
 
     def query(self):
         for node in self.nodes:
@@ -114,65 +114,101 @@ class MiLightLight(polyinterface.Node):
         
     def setOn(self, command):
         if ( self.myMilight.turnOn(self.grpNum) == False ):
-            LOGGER.warning('Unable to Turn ON ' + self.name )
+            self.__ConnectWifiBridge()
+            if ( self.myMilight.turnOn(self.grpNum) == False ):
+                LOGGER.warning('Unable to Turn ON ' + self.name )
+            else:
+                self.setDriver('ST', 100,True)
         else:
             self.setDriver('ST', 100,True)
 
     def setOff(self, command):
         if (self.myMilight.turnOff(self.grpNum) == False):
-            LOGGER.warning('Unable to Turn OFF ' + self.name )
+            self.__ConnectWifiBridge()
+            if (self.myMilight.turnOff(self.grpNum) == False):
+                LOGGER.warning('Unable to Turn OFF ' + self.name )
+            else:
+                self.setDriver('ST', 0,True)
         else:
             self.setDriver('ST', 0,True)
         
     def setColorID(self, command):
         intColor = int(command.get('value'))
         if (self.myMilight.setColor(intColor,self.grpNum) == False):
-            LOGGER.warning('Unable to SetColor ' + self.name )
+            self.__ConnectWifiBridge()
+            if (self.myMilight.setColor(intColor,self.grpNum) == False):
+                LOGGER.warning('Unable to SetColor ' + self.name )
+            else:
+                self.setDriver('GV1', intColor,True)
         else:
             self.setDriver('GV1', intColor,True)
     
     def setColor(self, command):
         intColor = self.parent.COLOR_VALUE[int(command.get('value'))-1]
         if (self.myMilight.setColor(intColor,self.grpNum) == False):
-            LOGGER.warning('Unable to SetColor ' + self.name )
+            self.__ConnectWifiBridge()
+            if (self.myMilight.setColor(intColor,self.grpNum) == False):
+                LOGGER.warning('Unable to SetColor ' + self.name )
+            else:
+                self.setDriver('GV1', intColor,True)
         else:
             self.setDriver('GV1', intColor,True)
             
     def setSaturation(self, command):
         intSat = int(command.get('value'))
         if (self.myMilight.setSaturation(intSat,self.grpNum) == False):
-            LOGGER.warning('Unable to setSaturation ' + self.name )
+            self.__ConnectWifiBridge()
+            if (self.myMilight.setSaturation(intSat,self.grpNum) == False):
+                LOGGER.warning('Unable to setSaturation ' + self.name )
+            else:
+                self.setDriver('GV2', intSat,True)
         else:
             self.setDriver('GV2', intSat,True)
         
     def setBrightness(self, command):
         intBri = int(command.get('value'))
         if (self.myMilight.setBrightness(intBri,self.grpNum)  == False):
-            LOGGER.warning('Unable to setBrightness ' + self.name )
+            self.__ConnectWifiBridge()
+            if (self.myMilight.setBrightness(intBri,self.grpNum)  == False):
+                LOGGER.warning('Unable to setBrightness ' + self.name )
+            else:
+                self.setDriver('GV3', intBri,True)
         else:
             self.setDriver('GV3', intBri,True)
 
     def setTempColor(self, command):
         intTemp = self.parent.WHITE_TEMP[int(command.get('value'))-1]
         if (self.myMilight.setTemperature(intTemp,self.grpNum) == False):
-            LOGGER.warning('Unable to setTemperature ' + self.name )
+            self.__ConnectWifiBridge()
+            if (self.myMilight.setTemperature(intTemp,self.grpNum) == False):
+                LOGGER.warning('Unable to setTemperature ' + self.name )
+            else:
+                self.setDriver('GV5', intTemp,True)
         else:
             self.setDriver('GV5', intTemp,True)
         
     def setEffect(self, command):
         intEffect = int(command.get('value'))
         if (self.myMilight.setDiscoMode(intEffect,self.grpNum) == False):
-            LOGGER.warning('Unable to setDiscoMode ' + self.name )
+            self.__ConnectWifiBridge()
+            if (self.myMilight.setDiscoMode(intEffect,self.grpNum) == False):
+                LOGGER.warning('Unable to setDiscoMode ' + self.name )
+            else:
+                self.setDriver('GV4', intEffect,True)
         else:
             self.setDriver('GV4', intEffect,True)
         
     def setWhiteMode(self, command):
         if (self.myMilight.setWhiteMode(self.grpNum) == False):
-            LOGGER.warning('Unable to setWhiteMode ' + self.name )
+            self.__ConnectWifiBridge()
+            if (self.myMilight.setWhiteMode(self.grpNum) == False):
+                LOGGER.warning('Unable to setWhiteMode ' + self.name )
             
     def setNightMode(self, command):
         if (self.myMilight.setNightMode(self.grpNum) == False):
-            LOGGER.warning('Unable to setNightMode ' + self.name )
+            self.__ConnectWifiBridge()
+            if (self.myMilight.setNightMode(self.grpNum) == False):
+                LOGGER.warning('Unable to setNightMode ' + self.name )
     
     def __ConnectWifiBridge(self): 
         if ( self.myMilight.setup(self.milight_host,self.milight_port,self.milight_timeout) == False ):
@@ -224,47 +260,73 @@ class MiLightBridge(polyinterface.Node):
 
     def setOn(self, command):
         if ( self.myMilight.turnOnWifiBridgeLamp() == False ):
-            LOGGER.warning('Unable to Turn ON Bridge Light')
+            self.__ConnectWifiBridge()
+            if ( self.myMilight.turnOnWifiBridgeLamp() == False ):
+                LOGGER.warning('Unable to Turn ON Bridge Light')
+            else:
+                self.setDriver('ST', 100,True)
         else:
             self.setDriver('ST', 100,True)
 
     def setOff(self, command):
         if(self.myMilight.turnOffWifiBridgeLamp() == False):
-            LOGGER.warning('Unable to Turn OFF Bridge Light')
+            self.__ConnectWifiBridge()
+            if(self.myMilight.turnOffWifiBridgeLamp() == False):
+                LOGGER.warning('Unable to Turn OFF Bridge Light')
+            else:
+                self.setDriver('ST', 0, True)
         else:
             self.setDriver('ST', 0, True)
         
     def setColorID(self, command):
         intColor = int(command.get('value'))
         if (self.myMilight.setColorBridgeLamp(intColor) == False):
-            LOGGER.warning('Unable to setColorBridgeLamp')
+            self.__ConnectWifiBridge()
+            if (self.myMilight.setColorBridgeLamp(intColor) == False):
+                LOGGER.warning('Unable to setColorBridgeLamp')
+            else:
+                self.setDriver('GV1', intColor,True)
         else:
             self.setDriver('GV1', intColor,True)
     
     def setColor(self, command):
         intColor = self.parent.COLOR_VALUE[int(command.get('value'))-1]
         if (self.myMilight.setColorBridgeLamp(intColor) == False):
-            LOGGER.warning('Unable to SetColor ' + self.name )
+            self.__ConnectWifiBridge()
+            if (self.myMilight.setColorBridgeLamp(intColor) == False):
+                LOGGER.warning('Unable to SetColor ' + self.name )
+            else:
+                self.setDriver('GV1', intColor,True)
         else:
             self.setDriver('GV1', intColor,True)
             
     def setBrightness(self, command):
         intBri = int(command.get('value'))
         if (self.myMilight.setBrightnessBridgeLamp(intBri) == False):
-            LOGGER.warning('Unable to setBrightnessBridgeLamp')
+            self.__ConnectWifiBridge()
+            if (self.myMilight.setBrightnessBridgeLamp(intBri) == False):
+                LOGGER.warning('Unable to setBrightnessBridgeLamp')
+            else:
+                self.setDriver('GV3', intBri,True)
         else:
             self.setDriver('GV3', intBri,True)
         
     def setEffect(self, command):
         intEffect = int(command.get('value'))
         if(self.myMilight.setDiscoModeBridgeLamp(intEffect) == False):
-            LOGGER.warning('Unable to setDiscoModeBridgeLamp')
+            self.__ConnectWifiBridge()
+            if(self.myMilight.setDiscoModeBridgeLamp(intEffect) == False):
+                LOGGER.warning('Unable to setDiscoModeBridgeLamp')
+            else:
+                self.setDriver('GV4', intEffect,True)
         else:
             self.setDriver('GV4', intEffect,True)
         
     def setWhiteMode(self, command):
         if (self.myMilight.setWhiteModeBridgeLamp() == False):
-            LOGGER.warning('Unable to setWhiteModeBridgeLamp')
+            self.__ConnectWifiBridge()
+            if (self.myMilight.setWhiteModeBridgeLamp() == False):
+                LOGGER.warning('Unable to setWhiteModeBridgeLamp')
   
     def __ConnectWifiBridge(self): 
         if ( self.myMilight.setup(self.milight_host,self.milight_port,self.milight_timeout) == False ):
