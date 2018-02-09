@@ -366,11 +366,14 @@ class MilightWifiBridge:
           #                      str(startSessionResponse.sessionId2), str(self.__sequence_number)))
           self.__sock.sendto(bytesToSend, (self.__ip, self.__port))
           # Receive response frame
-          data, addr = self.__sock.recvfrom(64)
-          if len(data) == 8:
-            if data[6] == self.__sequence_number:
-              returnValue = True
-
+          try:
+            data, addr = self.__sock.recvfrom(64)
+            if len(data) == 8:
+              if data[6] == self.__sequence_number:
+                returnValue = True
+          except socket.timeout:
+            returnValue = False
+            
     return returnValue
 
 
