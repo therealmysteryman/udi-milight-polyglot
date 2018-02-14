@@ -70,6 +70,10 @@ class Controller(polyinterface.Controller):
     def discover(self, *args, **kwargs):
         time.sleep(1)
         self.addNode(MiLightBridge(self, self.address, 'bridge', 'Bridge'))
+        self.parent.addNode(MiLightLight(self, 'bridge', 'zone1', 'Zone1'))
+        self.parent.addNode(MiLightLight(self, 'bridge', 'zone2', 'Zone2'))
+        self.parent.addNode(MiLightLight(self, 'bridge', 'zone3', 'Zone3'))
+        self.parent.addNode(MiLightLight(self, 'bridge', 'zone4', 'Zone4'))
         
     def delete(self):
         LOGGER.info('Deleting MiLight')
@@ -244,7 +248,6 @@ class MiLightBridge(polyinterface.Node):
         self.milight_host = self.parent.milight_host
         self.milight_port = self.parent.milight_port
         self.myMilight = MilightWifiBridge()
-        self.discover()
          
     def start(self):
         self.__ConnectWifiBridge()
@@ -254,14 +257,6 @@ class MiLightBridge(polyinterface.Node):
         self.setDriver('GV1', 0, True)
         self.setDriver('GV3', 100, True)
         self.setDriver('GV4', 1, True)
-
-        
-    def discover(self, *args, **kwargs):
-        time.sleep(1)
-        self.parent.addNode(MiLightLight(self, self.parent.address, 'zone1', 'Zone1'))
-        self.parent.addNode(MiLightLight(self, self.parent.address, 'zone2', 'Zone2'))
-        self.parent.addNode(MiLightLight(self, self.parent.address, 'zone3', 'Zone3'))
-        self.parent.addNode(MiLightLight(self, self.parent.address, 'zone4', 'Zone4'))
         
     def setOn(self, command):
         if ( self.myMilight.turnOnWifiBridgeLamp() == False ):
