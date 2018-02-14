@@ -69,7 +69,7 @@ class Controller(polyinterface.Controller):
         
     def discover(self, *args, **kwargs):
         time.sleep(1)
-        self.addNode(MiLightBridge(self, self.address, 'bridge', 'Bridge'))
+        self.addNode(MiLightBridge(self, 'bridge', 'bridge', 'Bridge'))
         self.addNode(MiLightLight(self, 'bridge', 'zone1', 'Zone1'))
         self.addNode(MiLightLight(self, 'bridge', 'zone2', 'Zone2'))
         self.addNode(MiLightLight(self, 'bridge', 'zone3', 'Zone3'))
