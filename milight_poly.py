@@ -69,11 +69,13 @@ class Controller(polyinterface.Controller):
         
     def discover(self, *args, **kwargs):
         time.sleep(1)
-        self.addNode(MiLightBridge(self, 'bridge', 'bridge', 'Bridge'))
-        self.addNode(MiLightLight(self, 'bridge', 'zone1', 'Zone1'))
-        self.addNode(MiLightLight(self, 'bridge', 'zone2', 'Zone2'))
-        self.addNode(MiLightLight(self, 'bridge', 'zone3', 'Zone3'))
-        self.addNode(MiLightLight(self, 'bridge', 'zone4', 'Zone4'))
+        
+        for myHost in self.milight_host.split(',')
+            self.addNode(MiLightBridge(self, 'bridge', 'bridge', 'Bridge', myHost, self.milight_port))
+            self.addNode(MiLightLight(self, 'bridge', 'zone1', 'Zone1', myHost, self.milight_port))
+            self.addNode(MiLightLight(self, 'bridge', 'zone2', 'Zone2', myHost, self.milight_port))
+            self.addNode(MiLightLight(self, 'bridge', 'zone3', 'Zone3', myHost, self.milight_port))
+            self.addNode(MiLightLight(self, 'bridge', 'zone4', 'Zone4', myHost, self.milight_port))
         
     def delete(self):
         LOGGER.info('Deleting MiLight')
@@ -84,13 +86,13 @@ class Controller(polyinterface.Controller):
     
 class MiLightLight(polyinterface.Node):
 
-    def __init__(self, controller, primary, address, name):
+    def __init__(self, controller, primary, address, name, bridge_host, bridge_port)
 
         super(MiLightLight, self).__init__(controller, primary, address, name)
         self.queryON = True
         self.milight_timeout = 30.0
-        self.milight_host = self.parent.milight_host
-        self.milight_port = self.parent.milight_port
+        self.milight_host = bridge_host
+        self.milight_port = bridge_port
         self.myMilight = MilightWifiBridge()
         
         # Set Zone
@@ -240,13 +242,13 @@ class MiLightLight(polyinterface.Node):
     
 class MiLightBridge(polyinterface.Node):
 
-    def __init__(self, controller, primary, address, name):
+    def __init__(self, controller, primary, address, name, bridge_host, bridge_port)
 
         super(MiLightBridge, self).__init__(controller, primary, address, name)
         self.queryON = True
         self.milight_timeout = 30.0
-        self.milight_host = self.parent.milight_host
-        self.milight_port = self.parent.milight_port
+        self.milight_host = bridge_host
+        self.milight_port = bridge_port
         self.myMilight = MilightWifiBridge()
          
     def start(self):
