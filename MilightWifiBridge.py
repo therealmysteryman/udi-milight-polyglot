@@ -313,11 +313,14 @@ class MilightWifiBridge:
     data_to_send = MilightWifiBridge.__START_SESSION_MSG
     # logging.debug("Sending frame '{}' to {}:{}".format(str(binascii.hexlify(data_to_send)),
     #                                                 str(self.__ip), str(self.__port)))
-    self.__sock.sendto(data_to_send, (self.__ip, self.__port))
-    response = MilightWifiBridge.__START_SESSION_RESPONSE(responseReceived=False, mac="", sessionId1=-1, sessionId2=-1)
+    try:
+      self.__sock.sendto(data_to_send, (self.__ip, self.__port))
+      response = MilightWifiBridge.__START_SESSION_RESPONSE(responseReceived=False, mac="", sessionId1=-1, sessionId2=-1)
 
-    # Receive start session response
-    data, addr = self.__sock.recvfrom(1024)
+      # Receive start session response
+      data, addr = self.__sock.recvfrom(1024)
+    except socket.timeout:
+      pass
     if len(data) == 22:
       # Parse valid start session response
       response = MilightWifiBridge.__START_SESSION_RESPONSE(responseReceived=True,
