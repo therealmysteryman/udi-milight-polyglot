@@ -69,13 +69,14 @@ class Controller(polyinterface.Controller):
         
     def discover(self, *args, **kwargs):
         time.sleep(1)
-        
+        count = 1
         for myHost in self.milight_host.split(','):
-            self.addNode(MiLightBridge(self, 'bridge', 'bridge', 'Bridge', myHost, self.milight_port))
-            self.addNode(MiLightLight(self, 'bridge', 'zone1', 'Zone1', myHost, self.milight_port))
-            self.addNode(MiLightLight(self, 'bridge', 'zone2', 'Zone2', myHost, self.milight_port))
-            self.addNode(MiLightLight(self, 'bridge', 'zone3', 'Zone3', myHost, self.milight_port))
-            self.addNode(MiLightLight(self, 'bridge', 'zone4', 'Zone4', myHost, self.milight_port))
+            self.addNode(MiLightBridge(self, 'bridge' + str(count) , 'bridge' + str(count) , 'Bridge', myHost, self.milight_port))
+            self.addNode(MiLightLight(self, 'bridge' + str(count), 'zone1', 'Zone1', myHost, self.milight_port))
+            self.addNode(MiLightLight(self, 'bridge' + str(count) , 'zone2', 'Zone2', myHost, self.milight_port))
+            self.addNode(MiLightLight(self, 'bridge' + str(count), 'zone3', 'Zone3', myHost, self.milight_port))
+            self.addNode(MiLightLight(self, 'bridge' + str(count), 'zone4', 'Zone4', myHost, self.milight_port))
+            count = count + 1
         
     def delete(self):
         LOGGER.info('Deleting MiLight')
