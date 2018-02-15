@@ -86,7 +86,7 @@ class Controller(polyinterface.Controller):
     
 class MiLightLight(polyinterface.Node):
 
-    def __init__(self, controller, primary, address, name, bridge_host, bridge_port)
+    def __init__(self, controller, primary, address, name, bridge_host, bridge_port):
 
         super(MiLightLight, self).__init__(controller, primary, address, name)
         self.queryON = True
@@ -242,7 +242,7 @@ class MiLightLight(polyinterface.Node):
     
 class MiLightBridge(polyinterface.Node):
 
-    def __init__(self, controller, primary, address, name, bridge_host, bridge_port)
+    def __init__(self, controller, primary, address, name, bridge_host, bridge_port):
 
         super(MiLightBridge, self).__init__(controller, primary, address, name)
         self.queryON = True
