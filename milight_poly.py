@@ -72,6 +72,7 @@ class Controller(polyinterface.Controller):
         count = 1
         for myHost in self.milight_host.split(','):
             self.addNode(MiLightBridge(self, 'bridge' + str(count), 'bridge' + str(count), 'Bridge' + str(count), myHost, self.milight_port))
+            time.sleep(1)
             self.addNode(MiLightLight(self, 'bridge' + str(count), 'bridge' + str(count) + '_zone1', 'Zone1', myHost, self.milight_port))
             self.addNode(MiLightLight(self, 'bridge' + str(count), 'bridge' + str(count) + '_zone2', 'Zone2', myHost, self.milight_port))
             self.addNode(MiLightLight(self, 'bridge' + str(count), 'bridge' + str(count) + '_zone3', 'Zone3', myHost, self.milight_port))
