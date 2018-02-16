@@ -319,11 +319,10 @@ class MilightWifiBridge:
 
       # Receive start session response
       data, addr = self.__sock.recvfrom(1024)
-    except socket.timeout:
-      pass
-    if len(data) == 22:
+   
+      if len(data) == 22:
       # Parse valid start session response
-      response = MilightWifiBridge.__START_SESSION_RESPONSE(responseReceived=True,
+        response = MilightWifiBridge.__START_SESSION_RESPONSE(responseReceived=True,
                                                             mac=str("{}:{}:{}:{}:{}:{}".format(format(data[7], 'x'),
                                                                                                format(data[8], 'x'),
                                                                                                format(data[9], 'x'),
@@ -332,7 +331,10 @@ class MilightWifiBridge:
                                                                                                format(data[12], 'x'))),
                                                             sessionId1=int(data[19]),
                                                             sessionId2=int(data[20]))
-    return response
+      return response
+    
+    except socket.timeout:
+      pass
 
   def __sendRequest(self, command, zoneId):
     """Send command to a specific zone and get response (ACK from the wifi bridge)
