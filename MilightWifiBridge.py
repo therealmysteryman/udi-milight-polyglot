@@ -351,37 +351,37 @@ class MilightWifiBridge:
     if len(bytearray(command)) == 9:
       if int(zoneId) >= 0 and int(zoneId) <= 4:
         startSessionResponse = self.__startSession()
-        if startSessionResponse.responseReceived:
-          # For each request, increment the sequence number (even if the session ID is regenerated)
-          # Sequence number must be between 0x01 and 0xFF
-          self.__sequence_number = (self.__sequence_number + 1) & 0xFF
-          if self.__sequence_number == 0:
-            self.__sequence_number = 1
+        try:
+          if startSessionResponse.responseReceived:
+            # For each request, increment the sequence number (even if the session ID is regenerated)
+            # Sequence number must be between 0x01 and 0xFF
+            self.__sequence_number = (self.__sequence_number + 1) & 0xFF
+            if self.__sequence_number == 0:
+              self.__sequence_number = 1
 
-          # Prepare request frame to send
-          bytesToSend = bytearray([0x80, 0x00, 0x00, 0x00, 0x11, startSessionResponse.sessionId1,
-                                   startSessionResponse.sessionId2, 0x00, int(self.__sequence_number), 0x00])
-          bytesToSend += bytearray(command)
-          bytesToSend += bytearray([int(zoneId), 0x00])
-          bytesToSend += bytearray([int(MilightWifiBridge.__calculateCheckSum(bytearray(command), int(zoneId)))])
+            # Prepare request frame to send
+            bytesToSend = bytearray([0x80, 0x00, 0x00, 0x00, 0x11, startSessionResponse.sessionId1,
+                                     startSessionResponse.sessionId2, 0x00, int(self.__sequence_number), 0x00])
+            bytesToSend += bytearray(command)
+            bytesToSend += bytearray([int(zoneId), 0x00])
+            bytesToSend += bytearray([int(MilightWifiBridge.__calculateCheckSum(bytearray(command), int(zoneId)))])
 
-          # Send request frame
-          # logging.debug("Sending request with command '{}' with session ID 1 '{}', session ID 2 '{}' and sequence number '{}'"
-          #              .format(str(binascii.hexlify(command)), str(startSessionResponse.sessionId1),
-          #                      str(startSessionResponse.sessionId2), str(self.__sequence_number)))
-          self.__sock.sendto(bytesToSend, (self.__ip, self.__port))
-          # Receive response frame
-          try:
+            # Send request frame
+            # logging.debug("Sending request with command '{}' with session ID 1 '{}', session ID 2 '{}' and sequence number '{}'"
+            #              .format(str(binascii.hexlify(command)), str(startSessionResponse.sessionId1),
+            #                      str(startSessionResponse.sessionId2), str(self.__sequence_number)))
+            self.__sock.sendto(bytesToSend, (self.__ip, self.__port))
+            # Receive response frame
+
             data, addr = self.__sock.recvfrom(64)
             if len(data) == 8:
               if data[6] == self.__sequence_number:
                 returnValue = True
-          except socket.timeout:
+        except Exception:
             returnValue = False
             
     return returnValue
-
-
+  
   ######################### PUBLIC FUNCTIONS #########################
   def turnOn(self, zoneId):
     """Request 'Light on' to a zone
