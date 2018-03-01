@@ -12,8 +12,8 @@
         {
             "title": "udi-milight-poly: A Polyglot v2 interface to Milight Protocol V6",
             "author": "AutomationGeek",
-            "version": "0.3.2",
-            "date": "Feb 17, 2018",
+            "version": "2.3.2",
+            "date": "March 1, 2018",
             "source": "https://github.com/therealmysteryman/udi-milight-polyglot",
             "license": "https://github.com/therealmysteryman/udi-milight-polyglot/blob/master/LICENSE"
         },
