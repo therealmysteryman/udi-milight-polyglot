@@ -49,7 +49,6 @@ class Controller(polyinterface.Controller):
                 LOGGER.error('MiLight requires \'host\' parameters to be specified in custom configuration.')
                 return False
             else:
-                self.setDriver('ST', 1)
                 self.discover()
                 self.query()
                 
@@ -63,6 +62,7 @@ class Controller(polyinterface.Controller):
         pass
 
     def query(self):
+        self.setDriver('ST', 1)
         for node in self.nodes:
             if self.nodes[node].queryON == True :
                 self.nodes[node].query()
