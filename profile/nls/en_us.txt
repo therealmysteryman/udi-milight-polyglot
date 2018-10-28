@@ -7,6 +7,8 @@ ND-MILIGHT_BRIDGE-NAME = Milight iBox
 ND-MILIGHT_BRIDGE-ICON = LampAndSwitch
 ND-controller-NAME = Milight Hub
 ND-controller-ICON = GenericCtl
+CMD-DISCOVER-NAME = Discover
+CMD-INSTALL_PROFILE-NAME = Install Profile
 
 ST-GV1-NAME = Color ID
 ST-GV2-NAME = Saturation

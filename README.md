@@ -8,7 +8,7 @@ This Poly provides an interface between Milight iBox 1 or 2 and Polyglot v2 serv
 
 Installation instructions
 
-You can install from Polyglot V2 store or manually : 
+You can install from Polyglot V2 store or manually :
 
 1. cd ~/.polyglot/nodeservers
 2. git clone https://github.com/therealmysteryman/udi-milight-polyglot.git
@@ -20,3 +20,11 @@ You can install from Polyglot V2 store or manually :
 
 1. Using this Python Library to control the Milight - https://github.com/QuentinCG/Milight-Wifi-Bridge-3.0-Python-Library
 2. Based on the Node Server Template - https://github.com/Einstein42/udi-poly-template-python
+
+## Release Notes
+
+  - 2.3.4 10/28/2018
+    - Add heartbeat
+    - Add auto update profile based on profile/version.txt
+    - query reports drivers so ISY reboot gets the current status
+  
