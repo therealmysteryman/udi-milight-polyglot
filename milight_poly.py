@@ -73,7 +73,7 @@ class Controller(polyinterface.Controller):
         pass
 
     def longPoll(self):
-        self.heardbeat()
+        self.heartbeat()
 
     def query(self):
         self.setDriver('ST', 1)
