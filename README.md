@@ -23,8 +23,9 @@ You can install from Polyglot V2 store or manually :
 
 ## Release Notes
 
+  - 2.3.6 11/01/2018
+    - Also send heartbeat on startup
   - 2.3.4 10/28/2018
     - Add heartbeat
     - Add auto update profile based on profile/version.txt
     - query reports drivers so ISY reboot gets the current status
-  

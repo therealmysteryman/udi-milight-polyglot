@@ -68,6 +68,7 @@ class Controller(polyinterface.Controller):
         except Exception as ex:
             LOGGER.error('Error starting MiLight NodeServer: %s', str(ex))
         self.check_profile()
+        self.heartbeat()
 
     def shortPoll(self):
         pass
