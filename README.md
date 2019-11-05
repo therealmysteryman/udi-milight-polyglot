@@ -23,6 +23,8 @@ You can install from Polyglot V2 store or manually :
 
 ## Release Notes
 
+  - 2.4.6 05/11/2019
+    - Added support to Polisy
   - 2.3.6 11/01/2018
     - Also send heartbeat on startup
   - 2.3.4 10/28/2018
