@@ -23,11 +23,11 @@ You can install from Polyglot V2 store or manually :
 
 ## Release Notes
 
-  - 2.4.6 05/11/2019
+  - 2.3.7 05/11/2019
     - Added support to Polisy
-  - 2.3.6 11/01/2018
+  - 2.3.6 01/11/2018
     - Also send heartbeat on startup
-  - 2.3.4 10/28/2018
+  - 2.3.4 28/11/2018
     - Add heartbeat
     - Add auto update profile based on profile/version.txt
     - query reports drivers so ISY reboot gets the current status
