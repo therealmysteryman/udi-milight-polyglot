@@ -288,9 +288,10 @@ class MilightWifiBridge:
     # Create new milight wifi bridge session
     try:
       self.__sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+      self.__sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
       self.__ip = ip
       self.__port = port
-      self.__sock.connect((self.__ip, self.__port))
+      # self.__sock.connect((self.__ip, self.__port))
       self.__sock.settimeout(timeout_sec)
       self.__initialized = True
       # logging.debug("UDP connection initialized with ip {} and port {}".format(str(ip), str(port)))
