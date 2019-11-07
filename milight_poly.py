@@ -102,7 +102,7 @@ class Controller(polyinterface.Controller):
             self.addNode(MiLightLight(self, 'bridge' + str(count), 'bridge' + str(count) + '_zone2', 'Zone2', myHost, self.milight_port))
             self.addNode(MiLightLight(self, 'bridge' + str(count), 'bridge' + str(count) + '_zone3', 'Zone3', myHost, self.milight_port))
             self.addNode(MiLightLight(self, 'bridge' + str(count), 'bridge' + str(count) + '_zone4', 'Zone4', myHost, self.milight_port))
-            self.addNode(MiLightBridge(self, 'bridge' + str(count), 'bridge' + str(count) + '_bridgeLamp', 'Bridge_Lamp' + str(count), myHost, self.milight_port))
+            self.addNode(MiLightBridge(self, 'bridge' + str(count), 'bridge' + str(count) + '_lamp', 'Lamp', myHost, self.milight_port))
             count = count + 1
 
     def delete(self):
@@ -265,11 +265,8 @@ class MiLightLight(polyinterface.Node):
                 LOGGER.warning('Unable to setNightMode ' + self.name )
 
     def __ConnectWifiBridge(self):
-        try:
-            if ( self.myMilight.setup(self.milight_host,self.milight_port,self.milight_timeout) == False ):
-                LOGGER.error('Unable to setup MiLight')
-        except Exception as ex:
-            LOGGER.info('__ConnectWifiBridge: %s', str(ex))
+        if ( self.myMilight.setup(self.milight_host,self.milight_port,self.milight_timeout) == False ):
+            LOGGER.error('Unable to setup MiLight')
         
     def query(self):
         self.__ConnectWifiBridge()
@@ -386,11 +383,8 @@ class MiLightBridge(polyinterface.Node):
                 LOGGER.warning('Unable to setWhiteModeBridgeLamp')
 
     def __ConnectWifiBridge(self):
-        try:
-            if ( self.myMilight.setup(self.milight_host,self.milight_port,self.milight_timeout) == False ):
-                LOGGER.error('Unable to setup MiLight')
-        except Exception as ex:
-            LOGGER.info('__ConnectWifiBridge: %s', str(ex))
+        if ( self.myMilight.setup(self.milight_host,self.milight_port,self.milight_timeout) == False ):
+            LOGGER.error('Unable to setup MiLight')
 
     def query(self):
         self.__ConnectWifiBridge()
