@@ -23,6 +23,9 @@ You can install from Polyglot V2 store or manually :
 
 ## Release Notes
 
+  - 2.4.1 08/11/2019
+    - Updated MiLight Library
+    - Bug Fixes
   - 2.3.7 05/11/2019
     - Added support to Polisy
   - 2.3.6 01/11/2018
