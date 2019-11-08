@@ -102,7 +102,6 @@ class Controller(polyinterface.Controller):
             self.addNode(MiLightLight(self, 'bridge' + str(count), 'bridge' + str(count) + '_zone2', 'Zone2', myHost, self.milight_port))
             self.addNode(MiLightLight(self, 'bridge' + str(count), 'bridge' + str(count) + '_zone3', 'Zone3', myHost, self.milight_port))
             self.addNode(MiLightLight(self, 'bridge' + str(count), 'bridge' + str(count) + '_zone4', 'Zone4', myHost, self.milight_port))
-            self.addNode(MiLightBridge(self, 'bridge' + str(count), 'bridge' + str(count) + '_lamp', 'Lamp', myHost, self.milight_port))
             count = count + 1
 
     def delete(self):
