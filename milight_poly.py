@@ -54,7 +54,7 @@ class Controller(polyinterface.Controller):
                 self.milight_host = ""
 
             if 'port' in self.polyConfig['customParams']:
-                self.milight_port = self.polyConfig['customParams']['port']
+                self.milight_port = int(self.polyConfig['customParams']['port'])
             else:
                 self.milight_port = 5987
 
