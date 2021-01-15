@@ -78,6 +78,7 @@ class Controller(polyinterface.Controller):
 
     def query(self):
         self.setDriver('ST', 1)
+        self.reportDrivers()
         for node in self.nodes:
             if self.nodes[node].queryON == True :
                 self.nodes[node].query()
