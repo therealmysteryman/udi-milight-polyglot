@@ -4,16 +4,16 @@
     "type": "python3",
     "executable": "milight_poly.py",
     "install": "install.sh",
-    "shortPoll": "15",
-    "longPoll": "900",
+    "shortPoll": "60",
+    "longPoll": "3600",
     "description": "Connect Milight V6 Protocol Lighting system to the ISY994.",
     "notice": "https://github.com/therealmysteryman/udi-milight-polyglot/blob/master/LICENSE",
     "credits": [
         {
             "title": "udi-milight-poly: A Polyglot v2 interface to Milight Protocol V6",
             "author": "AutomationGeek",
-            "version": "2.4.2",
-            "date": "December 21, 2020",
+            "version": "2.4.3",
+            "date": "January 15, 2021",
             "source": "https://github.com/therealmysteryman/udi-milight-polyglot",
             "license": "https://github.com/therealmysteryman/udi-milight-polyglot/blob/master/LICENSE"
         },
